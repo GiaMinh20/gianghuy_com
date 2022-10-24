@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static NHST.WebService1;
 
 namespace NHST
 {
@@ -135,6 +136,8 @@ namespace NHST
 
                 int UID = Convert.ToInt32(ViewState["UID"]);
                 StringBuilder html = new StringBuilder();
+                string Key = ViewState["Key"].ToString();
+
                 for (int i = FromRow; i < ToRow + 1; i++)
                 {
                     var item = acs[i];
@@ -215,15 +218,16 @@ namespace NHST
 
 
                     html.Append("  </div>");
+                    html.Append(" <div class=\"couple-btn\">");
 
                     if (item.Status == 0)
                     {
-                        html.Append(" <div class=\"couple-btn\">");
                         html.Append("<a onclick=\"paymoney($(this),'" + item.ID + "')\" class=\"btn\">thanh toán</a>");
                         html.Append(" <a onclick=\"deleteTrade('" + item.ID + "')\" class=\"btn\">Huỷ đơn hàng</a>");
-                        html.Append(" </div>");
                     }
-
+                    if (item.Status != 4)
+                        html.Append("  <a href=\"/them-khieu-nai-thanh-toan-ho-app.aspx?UID=" + UID + "&o=" + item.ID + "&Key=" + Key + "\" class=\"btn\">Khiếu nại</a>");
+                    html.Append(" </div>");
 
                     html.Append(" </div>");
 

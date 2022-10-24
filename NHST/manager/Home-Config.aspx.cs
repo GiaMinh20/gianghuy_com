@@ -38,7 +38,7 @@ namespace NHST.manager
                 LoadStep();
                 LoadService();
                 LoadCustomersBenefit();
-                LoadNews();
+                //LoadNews();
                 //loaddataPresent();
 
             }
@@ -107,123 +107,125 @@ namespace NHST.manager
             ltrListStep.Text = hcm.ToString();
         }
 
-        private void LoadNews()
-        {
-            var listNews = NewsController.GetAll();
-            StringBuilder hcm = new StringBuilder();
-            for (int i = 0; i < listNews.Count; i++)
-            {
-                var item = listNews[i];
-                string Type = "";
-                if (item.Type == 1)
-                {
-                    Type = "Tin tức mới";
-                }
-                else
-                {
-                    Type = "Vận chuyển hàng Trung Quốc";
-                }
-                hcm.Append("<tr>");
-                hcm.Append("<td>" + item.NewsTitle + "</td>");
-                hcm.Append("<td>" + item.NewsDesc + "</td>");
-                hcm.Append("<td>" + item.NewsPosition + "</td>");
-                hcm.Append("<td>" + Type + "</td>");
-                hcm.Append("<td>" + PJUtils.BoolToStatusShow(item.IsHidden.ToString()) + "</td>");
-                hcm.Append("<td>");
-                hcm.Append("<div class=\"action-table\">");
-                hcm.Append("<a href=\"#modalEditNews\" id=\"EditNews-" + item.ID + "\" onclick=\"EditNews(" + item.ID + ")\" class=\" modal-trigger\" data-position=\"top\" ><i class=\"material-icons\">edit</i><span>Cập nhật</span></a>");
-                hcm.Append("</div>");
-                hcm.Append("</td>");
-                hcm.Append("</tr>");
-            }
-            ltrListNews.Text = hcm.ToString();
-        }
+        #region Tin tức mới
+        //private void LoadNews()
+        //{
+        //    var listNews = NewsController.GetAll();
+        //    StringBuilder hcm = new StringBuilder();
+        //    for (int i = 0; i < listNews.Count; i++)
+        //    {
+        //        var item = listNews[i];
+        //        string Type = "";
+        //        if (item.Type == 1)
+        //        {
+        //            Type = "Tin tức mới";
+        //        }
+        //        else
+        //        {
+        //            Type = "Vận chuyển hàng Trung Quốc";
+        //        }
+        //        hcm.Append("<tr>");
+        //        hcm.Append("<td>" + item.NewsTitle + "</td>");
+        //        hcm.Append("<td>" + item.NewsDesc + "</td>");
+        //        hcm.Append("<td>" + item.NewsPosition + "</td>");
+        //        hcm.Append("<td>" + Type + "</td>");
+        //        hcm.Append("<td>" + PJUtils.BoolToStatusShow(item.IsHidden.ToString()) + "</td>");
+        //        hcm.Append("<td>");
+        //        hcm.Append("<div class=\"action-table\">");
+        //        hcm.Append("<a href=\"#modalEditNews\" id=\"EditNews-" + item.ID + "\" onclick=\"EditNews(" + item.ID + ")\" class=\" modal-trigger\" data-position=\"top\" ><i class=\"material-icons\">edit</i><span>Cập nhật</span></a>");
+        //        hcm.Append("</div>");
+        //        hcm.Append("</td>");
+        //        hcm.Append("</tr>");
+        //    }
+        //    ltrListNews.Text = hcm.ToString();
+        //}
 
-        [WebMethod]
-        public static string loadinfoNews(string ID)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            var p = NewsController.GetByID(ID.ToInt(0));
-            if (p != null)
-            {
-                tbl_News l = new tbl_News();
-                l.ID = p.ID;
-                l.NewsTitle = p.NewsTitle;
-                l.NewsDay = p.NewsDay;
-                l.NewsMonth = p.NewsMonth;
-                l.NewsDesc = p.NewsDesc;
-                l.IsHidden = p.IsHidden;
-                l.NewsLink = p.NewsLink;
-                l.Type = p.Type;
-                l.CreatedDate = p.CreatedDate;
-                l.NewsIMG = p.NewsIMG;
-                l.ModifiedDate = p.ModifiedDate;
-                l.NewsPosition = p.NewsPosition;
-                return serializer.Serialize(l);
-            }
-            return serializer.Serialize(null);
-        }
+        //[WebMethod]
+        //public static string loadinfoNews(string ID)
+        //{
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    var p = NewsController.GetByID(ID.ToInt(0));
+        //    if (p != null)
+        //    {
+        //        tbl_News l = new tbl_News();
+        //        l.ID = p.ID;
+        //        l.NewsTitle = p.NewsTitle;
+        //        l.NewsDay = p.NewsDay;
+        //        l.NewsMonth = p.NewsMonth;
+        //        l.NewsDesc = p.NewsDesc;
+        //        l.IsHidden = p.IsHidden;
+        //        l.NewsLink = p.NewsLink;
+        //        l.Type = p.Type;
+        //        l.CreatedDate = p.CreatedDate;
+        //        l.NewsIMG = p.NewsIMG;
+        //        l.ModifiedDate = p.ModifiedDate;
+        //        l.NewsPosition = p.NewsPosition;
+        //        return serializer.Serialize(l);
+        //    }
+        //    return serializer.Serialize(null);
+        //}
 
-        protected void btnUpNews_Click(object sender, EventArgs e)
-        {
-            string Email = Session["userLoginSystem"].ToString();
-            DateTime currentDate = DateTime.Now;
-            int CBID = hdfEditNewsID.Value.ToInt(0);
-            string BackLink = "/manager/Home-Config.aspx";
+        //protected void btnUpNews_Click(object sender, EventArgs e)
+        //{
+        //    string Email = Session["userLoginSystem"].ToString();
+        //    DateTime currentDate = DateTime.Now;
+        //    int CBID = hdfEditNewsID.Value.ToInt(0);
+        //    string BackLink = "/manager/Home-Config.aspx";
 
-            string CustomerNewsName = EditNewsTitle.Text;
-            string CustomerNewsDescription = EditNewsSummary.Text;
-            int Position = Convert.ToInt32(EditNewsPosition.Text.ToInt(0));
-            //int Type = Convert.ToInt32(ddlTypeNews.SelectedValue.ToInt(1));
-            bool IsHidden = Convert.ToBoolean(hdfEditNewsStatus.Value.ToInt(0));
+        //    string CustomerNewsName = EditNewsTitle.Text;
+        //    string CustomerNewsDescription = EditNewsSummary.Text;
+        //    int Position = Convert.ToInt32(EditNewsPosition.Text.ToInt(0));
+        //    //int Type = Convert.ToInt32(ddlTypeNews.SelectedValue.ToInt(1));
+        //    bool IsHidden = Convert.ToBoolean(hdfEditNewsStatus.Value.ToInt(0));
 
-            string IMG = "";
-            if (EditNewsIMG.HasFiles)
-            {
-                foreach (HttpPostedFile f in EditNewsIMG.PostedFiles)
-                {
-                    string fileContentType = f.ContentType; // getting ContentType
+        //    string IMG = "";
+        //    if (EditNewsIMG.HasFiles)
+        //    {
+        //        foreach (HttpPostedFile f in EditNewsIMG.PostedFiles)
+        //        {
+        //            string fileContentType = f.ContentType; // getting ContentType
 
-                    byte[] tempFileBytes = new byte[f.ContentLength];
+        //            byte[] tempFileBytes = new byte[f.ContentLength];
 
-                    var data = f.InputStream.Read(tempFileBytes, 0, Convert.ToInt32(f.ContentLength));
+        //            var data = f.InputStream.Read(tempFileBytes, 0, Convert.ToInt32(f.ContentLength));
 
-                    string fileName = f.FileName; // getting File Name
-                    string fileExtension = Path.GetExtension(fileName).ToLower();
+        //            string fileName = f.FileName; // getting File Name
+        //            string fileExtension = Path.GetExtension(fileName).ToLower();
 
-                    var result = FileUploadCheck.isValidFile(tempFileBytes, fileExtension, fileContentType); // Validate Header
-                    if (result)
-                    {
-                        if (f.FileName.ToLower().Contains(".jpg") || f.FileName.ToLower().Contains(".png") || f.FileName.ToLower().Contains(".jpeg"))
-                        {
-                            if (f.ContentType == "image/png" || f.ContentType == "image/jpeg" || f.ContentType == "image/jpg")
-                            {
-                                //var o = KhieuNaiIMG + Guid.NewGuid() + Path.GetExtension(f.FileName);
-                                try
-                                {
-                                    //f.SaveAs(Server.MapPath(o));
-                                    IMG = FileUploadCheck.ConvertToBase64(tempFileBytes);
-                                }
-                                catch { }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-                IMG = EditNewsIMGBefore.ImageUrl;
+        //            var result = FileUploadCheck.isValidFile(tempFileBytes, fileExtension, fileContentType); // Validate Header
+        //            if (result)
+        //            {
+        //                if (f.FileName.ToLower().Contains(".jpg") || f.FileName.ToLower().Contains(".png") || f.FileName.ToLower().Contains(".jpeg"))
+        //                {
+        //                    if (f.ContentType == "image/png" || f.ContentType == "image/jpeg" || f.ContentType == "image/jpg")
+        //                    {
+        //                        //var o = KhieuNaiIMG + Guid.NewGuid() + Path.GetExtension(f.FileName);
+        //                        try
+        //                        {
+        //                            //f.SaveAs(Server.MapPath(o));
+        //                            IMG = FileUploadCheck.ConvertToBase64(tempFileBytes);
+        //                        }
+        //                        catch { }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    else
+        //        IMG = EditNewsIMGBefore.ImageUrl;
 
-            var kq = NewsController.Update(CBID, CustomerNewsName, EditNewsLink.Text, IsHidden, CustomerNewsDescription, IMG, Position, Email, 1);
+        //    var kq = NewsController.Update(CBID, CustomerNewsName, EditNewsLink.Text, IsHidden, CustomerNewsDescription, IMG, Position, Email, 1);
 
-            if (kq != null)
-            {
-                PJUtils.ShowMessageBoxSwAlertBackToLink("Cập nhật trang thành công.", "s", true, BackLink, Page);
-            }
-            else
-            {
-                PJUtils.ShowMessageBoxSwAlert("Có lỗi trong quá trình cập nhật trang. Vui lòng thử lại.", "e", true, Page);
-            }
-        }
+        //    if (kq != null)
+        //    {
+        //        PJUtils.ShowMessageBoxSwAlertBackToLink("Cập nhật trang thành công.", "s", true, BackLink, Page);
+        //    }
+        //    else
+        //    {
+        //        PJUtils.ShowMessageBoxSwAlert("Có lỗi trong quá trình cập nhật trang. Vui lòng thử lại.", "e", true, Page);
+        //    }
+        //}
+        #endregion
         [WebMethod]
         public static string loadinfoServices(string ID)
         {

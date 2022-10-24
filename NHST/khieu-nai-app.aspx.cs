@@ -32,10 +32,10 @@ namespace NHST
                     if (u != null)
                     {
                         var coms = ComplainController.GetByUID(u.ID);
+                        StringBuilder html = new StringBuilder();
+                        pnMobile.Visible = true;
                         if (coms.Count > 0)
                         {
-                            StringBuilder html = new StringBuilder();
-                            pnMobile.Visible = true;
                             foreach (var item in coms)
                             {
 
@@ -74,7 +74,15 @@ namespace NHST
                             }
                             ltrComplain.Text = html.ToString();
                         }
+                        else
+                        {
+                            html.Append("  <div class=\"thanhtoanho-list\">");
+                            html.Append("<h1>Danh sách trống </h1>");
+                            html.Append(" </div>");
+
+                        }
                     }
+
                 }
                 else
                 {

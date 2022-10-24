@@ -7323,6 +7323,7 @@
     <Content Include="huong-dan.aspx" />
     <Content Include="Including\uMenuSidebar.ascx" />
     <Content Include="index.aspx" />
+    <Content Include="khieu-nai-thanh-toan-ho-app.aspx" />
     <Content Include="khieu-nai-thanh-toan-ho.aspx" />
     <Content Include="khieu-nai-app.aspx" />
     <Content Include="khieu-nai.aspx" />
@@ -9407,6 +9408,7 @@
     <Content Include="thanh-toan-ho-app.aspx" />
     <Content Include="thanh-toan-ho.aspx" />
     <Content Include="Thanh-toan.aspx" />
+    <Content Include="them-khieu-nai-thanh-toan-ho-app.aspx" />
     <Content Include="them-khieu-nai-thanh-toan-ho.aspx" />
     <Content Include="them-khieu-nai-app.aspx" />
     <Content Include="them-khieu-nai.aspx" />
@@ -9934,6 +9936,13 @@
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="khieu-nai-thanh-toan-ho-app.aspx.cs">
+      <DependentUpon>khieu-nai-thanh-toan-ho-app.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="khieu-nai-thanh-toan-ho-app.aspx.designer.cs">
+      <DependentUpon>khieu-nai-thanh-toan-ho-app.aspx</DependentUpon>
     </Compile>
     <Compile Include="khieu-nai-thanh-toan-ho.aspx.cs">
       <DependentUpon>khieu-nai-thanh-toan-ho.aspx</DependentUpon>
@@ -11517,6 +11526,13 @@
     </Compile>
     <Compile Include="Thanh-toan.aspx.designer.cs">
       <DependentUpon>Thanh-toan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="them-khieu-nai-thanh-toan-ho-app.aspx.cs">
+      <DependentUpon>them-khieu-nai-thanh-toan-ho-app.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="them-khieu-nai-thanh-toan-ho-app.aspx.designer.cs">
+      <DependentUpon>them-khieu-nai-thanh-toan-ho-app.aspx</DependentUpon>
     </Compile>
     <Compile Include="them-khieu-nai-thanh-toan-ho.aspx.cs">
       <DependentUpon>them-khieu-nai-thanh-toan-ho.aspx</DependentUpon>

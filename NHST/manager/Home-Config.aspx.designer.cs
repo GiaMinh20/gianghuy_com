@@ -51,15 +51,6 @@ namespace NHST.manager
         protected global::System.Web.UI.WebControls.Literal ltrListCustomersBenefit;
 
         /// <summary>
-        /// ltrListNews control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltrListNews;
-
-        /// <summary>
         /// EditStepName control.
         /// </summary>
         /// <remarks>
@@ -391,15 +382,6 @@ namespace NHST.manager
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfIDNews;
-
-        /// <summary>
-        /// buttonUpNews control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button buttonUpNews;
 
         /// <summary>
         /// hdfEditNewsID control.

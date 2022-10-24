@@ -162,17 +162,18 @@ namespace NHST
                 }
 
                 ltrSection.Text = "";
-                var news = NewsController.GetAllNotHiddenType(1);
+                //var news = NewsController.GetAllNotHiddenType(1);
+                var news = PageController.GetTopByPagetTypeID(9, 14);
                 foreach (var item in news)
                 {
                     ltrSection.Text += "<div class=\"swiper-slide\">";
-                    ltrSection.Text += $"<a href=\"{item.NewsLink}\" class=\"article-item\">";
+                    ltrSection.Text += $"<a href=\"{item.NodeAliasPath}\" class=\"article-item\">";
                     ltrSection.Text += "<div class=\"article-image\">";
-                    ltrSection.Text += $"<img src=\"{item.NewsIMG}\" alt=\"{item.NewsTitle}\">";
+                    ltrSection.Text += $"<img src=\"{item.IMG}\" alt=\"{item.Title}\">";
                     ltrSection.Text += "</div>";
                     ltrSection.Text += "<div class=\"article-content\">";
-                    ltrSection.Text += $"<div class=\"article-title\">{item.NewsTitle}</div>";
-                    ltrSection.Text += $"<div class=\"article-para \" style=\"display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;\">{item.NewsDesc}</div>";
+                    ltrSection.Text += $"<div class=\"article-title\">{item.Title}</div>";
+                    ltrSection.Text += $"<div class=\"article-para \" style=\"display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;\">{item.Summary}</div>";
                     ltrSection.Text += "<div class=\"article-more\">xem chi tiết</div>";
                     ltrSection.Text += "</div></a></div>";
                 }

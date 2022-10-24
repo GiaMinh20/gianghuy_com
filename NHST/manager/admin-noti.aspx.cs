@@ -146,6 +146,10 @@ namespace NHST.manager
                     {
                         ltr.Text += "   <td><a href=\"/manager/userlist\" target=\"_blank\">" + item.Message + "</a></td>";
                     }
+                    else if (item.NotifType == 7)
+                    {
+                        ltr.Text += "   <td><a href=\"/manager/ComplainPayHelpList\" target=\"_blank\">" + item.Message + "</a></td>";
+                    }
                     else if (item.NotifType == 8)
                     {
                         ltr.Text += "   <td><a href=\"/manager/chi-tiet-thanh-toan-ho.aspx?ID=" + item.OrderID + "\" target=\"_blank\">" + item.Message + "</a></td>";

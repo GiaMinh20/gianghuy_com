@@ -370,6 +370,7 @@ namespace NHST.manager
                             {
                                 int UID = u.ID;
                                 double walletCYN = Convert.ToDouble(u.WalletCYN);
+                                double rf = Convert.ToDouble(txtAmountRefundCYN.Text);
                                 walletCYN = walletCYN + Convert.ToDouble(txtAmountRefundCYN.Text);
 
                                 AccountController.updateWalletCYN(u.ID, walletCYN);

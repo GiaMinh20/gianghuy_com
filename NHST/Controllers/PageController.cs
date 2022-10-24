@@ -140,7 +140,7 @@ namespace NHST.Controllers
             using (var dbe = new NHSTEntities())
             {
                 List<tbl_Page> pages = new List<tbl_Page>();
-                pages = dbe.tbl_Page.Where(p => p.PageTypeID == PageTypeID && p.IsHidden == false).Take(TopN).ToList();
+                pages = dbe.tbl_Page.Where(p => p.PageTypeID == PageTypeID && p.IsHidden == false).OrderByDescending(x => x.ID).Take(TopN).ToList();
                 if (pages.Count > 0)
                 {
                     return pages;

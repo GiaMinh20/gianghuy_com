@@ -295,6 +295,10 @@ namespace NHST.Bussiness
             {
                 return "<span class='bg-green'>Đã hoàn thành</span>";
             }
+            else if (status == 4)
+            {
+                return "<span class='bg-black'>Đã khiếu nại</span>";
+            }
             else
             {
                 return "<span class='bg-yellow'>Đã xác nhận</span>";

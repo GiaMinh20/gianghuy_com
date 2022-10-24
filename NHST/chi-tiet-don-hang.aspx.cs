@@ -351,7 +351,7 @@ namespace NHST
                         ltrChat.Text = "Hỗ trợ đơn hàng #" + o.ID + "";
                         //var config = ConfigurationController.GetByTop1();
                         double currency = 0;
-                        double currency1 = 0;                      
+                        double currency1 = 0;
                         if (!string.IsNullOrEmpty(obj_user.Currency.ToString()))
                         {
                             if (Convert.ToDouble(obj_user.Currency) > 0)
@@ -367,7 +367,7 @@ namespace NHST
                         currency1 = currency;
                         ViewState["OID"] = id;
 
-                        if(!string.IsNullOrEmpty(o.ExpectedDate.ToString()))
+                        if (!string.IsNullOrEmpty(o.ExpectedDate.ToString()))
                         {
                             ltrExpectedDate.Text += "<div class=\"arrival-info\">";
                             ltrExpectedDate.Text += "<div class=\"arrival-note\"><p>Dự kiến tới nơi</p></div>";
@@ -514,7 +514,7 @@ namespace NHST
                         hdfLoadMap.Value = serializer.Serialize(lwh);
 
                         #endregion
-                        
+
                         #region Lịch sử thay đổi
                         //var OrderChange = HistoryOrderChangeController.GetByMainOrderID(o.ID);
                         //if (OrderChange.Count > 0)
@@ -550,7 +550,7 @@ namespace NHST
                                     servicefee = feePercent / 100;
                                 }
                             }
-                        }                        
+                        }
                         double feebpnotdc = 0;
                         if (!string.IsNullOrEmpty(obj_user.FeeBuyPro))
                         {
@@ -563,7 +563,7 @@ namespace NHST
                         }
                         else
                             feebpnotdc = pricepro * servicefee;
-                        
+
                         double subfeebp = feebpnotdc * UL_CKFeeBuyPro / 100;
                         double feebp = feebpnotdc - subfeebp;
                         feebp = Math.Round(feebp, 0);
@@ -627,9 +627,15 @@ namespace NHST
                         {
                             foreach (var s in smallpackages)
                             {
+                                double? canQuyDoi = ((s.Length ?? 0) * (s.Width ?? 0) * (s.Height ?? 0) / 6000);
+
+                                double? canTinhTien = canQuyDoi > s.Weight ? canQuyDoi : s.Weight;
+
                                 ltrSmallPackages.Text += "<tr class=\"slide-up\">";
                                 ltrSmallPackages.Text += "<td>" + s.OrderTransactionCode + "</td>";
                                 ltrSmallPackages.Text += "<td>" + Math.Round(Convert.ToDouble(s.Weight), 1) + "</td>";
+                                ltrSmallPackages.Text += $"<td> {s.Length} x {s.Width} x {s.Height}</td>";
+                                ltrSmallPackages.Text += $"<td> {Math.Round(canTinhTien ?? 0, 2)}</td>";
                                 ltrSmallPackages.Text += "<td><span>" + s.Description + "</span></td>";
                                 ltrSmallPackages.Text += "<td>" + PJUtils.IntToStringStatusSmallPackageWithBGNew(Convert.ToInt32(s.Status)) + "</td>";
                                 ltrSmallPackages.Text += "</tr>";
@@ -1124,7 +1130,7 @@ namespace NHST
                             MainOrderController.UpdateDeposit(o.ID, obj_user.ID, "0");
                             int statusOOld = Convert.ToInt32(o.Status);
                             int statusONew = 1;
-                          
+
                             HistoryOrderChangeController.Insert(o.ID, uid, username, username +
             " đã đổi trạng thái của đơn hàng ID là: " + o.ID + ", từ: Chờ đặt cọc, sang: Hủy đơn hàng.", 1, currentDate);
 
@@ -1355,7 +1361,7 @@ namespace NHST
                                     if (st == 1)
                                     {
                                         var wh = WarehouseController.GetByID(Convert.ToInt32(o.ReceivePlace));
-                                        if(wh != null)
+                                        if (wh != null)
                                         {
                                             var ExpectedDate = currentDate.AddDays(Convert.ToInt32(wh.ExpectedDate));
                                             MainOrderController.UpdateExpectedDate(o.ID, ExpectedDate);

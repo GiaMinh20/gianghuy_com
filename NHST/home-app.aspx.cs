@@ -26,7 +26,7 @@ namespace NHST
             int UID = Request.QueryString["UID"].ToInt(0);
 
             StringBuilder html = new StringBuilder();
-            pnMobile.Visible = true;           
+            pnMobile.Visible = true;
 
             html.Append("<div class=\"white-nooffset-cont homepage\">");
             html.Append("  <div class=\"home-heading\">");
@@ -59,7 +59,7 @@ namespace NHST
                 html.Append(" <a href=\"/lich-su-giao-dich-app.aspx?UID=" + UID + "&Key=" + Key + "\" class=\"btn primary-btn pill-btn\">Lịch sử GD vnđ</a>");
                 html.Append("   </div>");
                 html.Append("  <div class=\"tcitem\">");
-                html.Append("    <p class=\"price gray-txt\">¥" + string.Format("{0:N0}", Convert.ToDouble(u.WalletCYN)) + "</p>");
+                html.Append("    <p class=\"price gray-txt\">¥" + string.Format("{0:0.00}", Convert.ToDouble(u.WalletCYN)) + "</p>");
                 html.Append("  <a href=\"/lich-su-giao-dich-tien-te-app.aspx?UID=" + UID + "&Key=" + Key + "\" class=\"btn xanhreu-btn pill-btn\">Lịch sử GD tệ</a>");
                 html.Append("  </div>");
                 html.Append(" </div>");
@@ -160,7 +160,7 @@ namespace NHST
             html.Append("   <p class=\"right-meta\"><a class=\"collapse-toggle\" data-show=\"Thu gọn <i class='fa fa-chevron-up'></i>\" data-hide=\"Mở rộng <i class='fa fa-chevron-down'></i>\" href=\"#chitiettb\">Thu gọn<i class='fa fa-chevron-up'></i></a></p>");
             html.Append("   </div>");
             html.Append("  <div class=\"collapse-content opts-wrap\">");
-            html.Append("      <a class=\"opts-row\" href=\"/tao-don-thanh-toan-ho-app.aspx?UID=" + UID + "&Key=" + Key + "\">");
+            html.Append("<a class=\"opts-row\" href=\"/tao-don-thanh-toan-ho-app.aspx?UID=" + UID + "&Key=" + Key + "\">");
             html.Append("  <span class=\"lb gray-txt\"><span class=\"icon\">");
             html.Append("     <img src=\"/App_Themes/App/images/icon-homefeat1.png\" alt=\"\"></span>Tạo đơn</span>");
             html.Append("  <span class=\"txt\"><i class=\"fa fa-angle-right\"></i></span>");
@@ -168,6 +168,11 @@ namespace NHST
             html.Append("  <a class=\"opts-row\" href=\"/thanh-toan-ho-app.aspx?UID=" + UID + "&Key=" + Key + "\">");
             html.Append("    <span class=\"lb gray-txt\"><span class=\"icon\">");
             html.Append("      <img src =\"/App_Themes/App/images/icon-homefeat2.png\" alt=\"\"></span> Danh sách đơn</span>");
+            html.Append("   <span class=\"txt\"><i class=\"fa fa-angle-right\"></i></span>");
+            html.Append("  </a>");
+            html.Append("  <a class=\"opts-row\" href=\"/khieu-nai-thanh-toan-ho-app.aspx?UID=" + UID + "&Key=" + Key + "\">");
+            html.Append("    <span class=\"lb gray-txt\"><span class=\"icon\">");
+            html.Append("      <img src =\"/App_Themes/App/images/icon-homefeat2.png\" alt=\"\"></span> Danh sách khiếu nại</span>");
             html.Append("   <span class=\"txt\"><i class=\"fa fa-angle-right\"></i></span>");
             html.Append("  </a>");
             html.Append("  </div>");

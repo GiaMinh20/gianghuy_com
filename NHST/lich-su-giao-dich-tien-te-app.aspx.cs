@@ -33,7 +33,7 @@ namespace NHST
                     if (user != null)
                     {
                         pnMobile.Visible = true;
-                        ltrAccount.Text = "¥ " + string.Format("{0:N0}", user.WalletCYN);
+                        ltrAccount.Text = "¥ " + string.Format("{0:0.00}", user.WalletCYN);
                         StringBuilder html = new StringBuilder();
                         var listhist = HistoryPayWalletCYNController.GetByUID(user.ID);
                         if (listhist.Count > 0)
@@ -101,7 +101,7 @@ namespace NHST
                     if (!string.IsNullOrEmpty(item.Amount.ToString()))
                         amount = item.Amount.ToString().ToFloat();
 
-                    html.Append("  <p class=\"do-txt\">" + symbol + " ¥ " + string.Format("{0:N0}", amount) + "</p>");
+                    html.Append("  <p class=\"do-txt\">" + symbol + " ¥ " + string.Format("{0:0.00}", amount) + "</p>");
                     html.Append("  </div>");
                     html.Append(" <div class=\"flex-justify-space\">");
                     html.Append("   <p class=\"gray-txt\">Số dư tài khoản:</p>");
