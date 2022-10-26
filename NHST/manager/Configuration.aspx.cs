@@ -259,7 +259,7 @@ namespace NHST.manager
                     txtWorkingTime.Text, txtCNY_VN.Text, txtPriceDefault.Text, hdfAbout.Value.ToString(), hdfAddress2.Value.ToString(), hdfFooterConfig.Value.ToString(), txtPercentAfter3M.Text, txtPercentIn3M.Text, txtPercentStaffOrder.Text, txtHotlineSupport.Text,
                     txtHotlineFeedback.Text, txtPinterest.Text, hdfContentNotificationPopup.Value.ToString(), txtTitleNotificationPopup.Text, txtTitleNotificattion.Text, txtLinkYoutube.Text, txtLinkZalo.Text, txtLinkWeChat.Text, txtMetaKeyWord.Text, txtMetaDescription.Text,
                     txtGoogleAna.Text, txtWebMaster.Text, Convert.ToInt32(txtNumberLinkOfOrder.Text), txtTitle.Text, txtOGTitle.Text, txtOGDescription.Text, IMG1, txtOGFBTitle.Text, txtOGFBDescription.Text, IMGFacebook, txtTwitterTitle.Text, txtTwitterDescription.Text, IMGTwitter,
-                    txtInsurancePercent.Text, txtHeaderScript.Text, txtFooterScript.Text, txtCompanyShortName.Text, txtCompanyLongName.Text, txtCompanyName.Text, IMG, txtTaxCode.Text, rAgentCurrency.Text, rPriceCheckOutWareDefault.Text, txtSaleIncomeTrans.Text, txtInsurancePercent.Text, Convert.ToDouble(pFeeService.Text));
+                    txtInsurancePercent.Text, txtHeaderScript.Text, txtFooterScript.Text, txtCompanyShortName.Text, txtCompanyLongName.Text, txtCompanyName.Text, IMG, txtTaxCode.Text, rAgentCurrency.Text, rPriceCheckOutWareDefault.Text, txtSaleIncomeTrans.Text, txtInsurranceTrans.Text, Convert.ToDouble(pFeeService.Text));
                 
                 if (kq == "ok")
                     PJUtils.ShowMsg("Cập nhật thiết lập thành công.", true, Page);

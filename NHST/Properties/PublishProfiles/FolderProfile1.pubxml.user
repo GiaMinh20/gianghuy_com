@@ -5,6 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\OneDrive\Máy tính\WF</_PublishTargetUrl>
+    <History>True|2022-10-25T10:18:45.0146057Z;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App.Master">
@@ -26885,10 +26886,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/12/2022 13:41:57</publishTime>
     </File>
     <File Include="bin/NHST.dll">
-      <publishTime>10/24/2022 14:41:41</publishTime>
+      <publishTime>10/25/2022 17:18:33</publishTime>
     </File>
     <File Include="bin/NHST.pdb">
-      <publishTime>10/24/2022 14:41:41</publishTime>
+      <publishTime>10/25/2022 17:18:33</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>01/12/2022 13:41:58</publishTime>
@@ -27251,7 +27252,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/23/2022 23:24:44</publishTime>
     </File>
     <File Include="manager/Configuration.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>10/25/2022 17:16:38</publishTime>
     </File>
     <File Include="manager/danh-sach-phien-xuat-kho-ky-gui.aspx">
       <publishTime>10/23/2022 23:24:44</publishTime>
@@ -27857,7 +27858,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/23/2022 23:24:44</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/24/2022 14:42:00</publishTime>
+      <publishTime>10/25/2022 17:18:40</publishTime>
     </File>
     <File Include="WebForm1.aspx">
       <publishTime>10/23/2022 23:24:44</publishTime>
