@@ -1070,6 +1070,7 @@
     <EntitySetMapping Name="tbl_Page">
       <EntityTypeMapping TypeName="NHSTModel.tbl_Page">
         <MappingFragment StoreEntitySet="tbl_Page">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="SideBar" ColumnName="SideBar" />
           <ScalarProperty Name="OGTwitterIMG" ColumnName="OGTwitterIMG" />
           <ScalarProperty Name="OGTwitterDescription" ColumnName="OGTwitterDescription" />
@@ -1122,6 +1123,7 @@
     <EntitySetMapping Name="tbl_PageType">
       <EntityTypeMapping TypeName="NHSTModel.tbl_PageType">
         <MappingFragment StoreEntitySet="tbl_PageType">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="SideBar" ColumnName="SideBar" />
           <ScalarProperty Name="OGTwitterIMG" ColumnName="OGTwitterIMG" />
           <ScalarProperty Name="OGTwitterDescription" ColumnName="OGTwitterDescription" />

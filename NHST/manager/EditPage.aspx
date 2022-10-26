@@ -43,7 +43,8 @@
 
                                 </div>
                                 <div class="preview-img">
-                                    <asp:Image ID="UpIMGBefore" runat="server" /></div>
+                                    <asp:Image ID="UpIMGBefore" runat="server" />
+                                </div>
                             </div>
                             <div class="input-field col s12 m6">
                                 <div class="switch status-func">
@@ -56,7 +57,7 @@
                                 </div>
                             </div>
                             <asp:HiddenField runat="server" ID="hdfStatus" />
-                           <div class="input-field col s12 m6">
+                            <div class="input-field col s12 m6">
                                 <div class="switch status-func">
                                     <span class="mr-2">SideBar: </span>
                                     <label>
@@ -87,15 +88,16 @@
                                     <button class="btn-upload" type="button">Upload</button>
                                 </div>
                                 <div class="preview-img-default">
-                                    <asp:Image ID="OGIMGBefore" style="max-height: 100px; max-width: 100px;" runat="server" /></div>
+                                    <asp:Image ID="OGIMGBefore" Style="max-height: 100px; max-width: 100px;" runat="server" />
+                                </div>
 
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGFacebookTitle" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGFacebookTitle" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-title">OG Facebook Title</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGFacebookDescription" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGFacebookDescription" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-description">OG Facebook Description</label>
                             </div>
                             <div class="input-field file-field col s12 m12">
@@ -105,15 +107,15 @@
                                     <button class="btn-upload" type="button">Upload</button>
                                 </div>
                                 <div class="preview-img-facebook">
-                                     <asp:Image ID="OGFacebookIMGBefore" style="max-height: 100px; max-width: 100px;" runat="server" />
+                                    <asp:Image ID="OGFacebookIMGBefore" Style="max-height: 100px; max-width: 100px;" runat="server" />
                                 </div>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGTwitterTitle" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGTwitterTitle" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-title">OG Twitter Title</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGTwitterDescription" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGTwitterDescription" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-description">OG Twitter Description</label>
                             </div>
                             <div class="input-field file-field col s12 m12">
@@ -122,8 +124,8 @@
                                     <asp:FileUpload ID="OGTwitterIMG" runat="server" class="upload-img" type="file" onchange="previewFiles(this);" title="" />
                                     <button class="btn-upload" type="button">Upload</button>
                                 </div>
-                                <div class="preview-img-twitter" >
-                                    <asp:Image ID="OGTwitterIMGBefore" style="max-height: 100px; max-width: 100px;" runat="server" />
+                                <div class="preview-img-twitter">
+                                    <asp:Image ID="OGTwitterIMGBefore" Style="max-height: 100px; max-width: 100px;" runat="server" />
                                 </div>
                             </div>
                             <div class="input-field col s12 m6">
@@ -142,10 +144,13 @@
 
                         </div>
                         <div class="row mt-3">
-                            <div class="col s12">
-                                <a onclick="updateFunction()" class="btn waves-effect white-text mr-2">Cập nhật</a>
-                           <%--     <a href="javascript:;" class="btn waves-effect" id="preview-btn">Xem trước</a>--%>
-
+                            <div class="col">
+                                <a onclick="updateFunction()" class="btn waves-effect white-text">Cập nhật</a>
+                                <%--     <a href="javascript:;" class="btn waves-effect" id="preview-btn">Xem trước</a>--%>
+                            </div>
+                            <div class="col">
+                                <a onclick="deleteFunction()" class="btn waves-effect white-text">Xóa</a>
+                                <%--     <a href="javascript:;" class="btn waves-effect" id="preview-btn">Xem trước</a>--%>
                             </div>
                         </div>
                     </div>
@@ -154,6 +159,7 @@
         </div>
     </div>
     <asp:Button runat="server" ID="btnUpdate" Style="display: none" OnClick="btnSave_Click" />
+    <asp:Button runat="server" ID="btnDelete" Style="display: none" OnClick="btnDelete_Click" />
     <!-- END: Page Main-->
     <script src="/App_Themes/AdminNew45/assets/vendors/tinymce/tinymce.min.js" type="text/javascript"></script>
     <script>
@@ -161,6 +167,9 @@
             var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
             $('#<%=hdfDetail.ClientID%>').val(content);
             $('#<%=btnUpdate.ClientID%>').click();
+        }
+        function deleteFunction() {
+            $('#<%=btnDelete.ClientID%>').click();
         }
         function CheckStatus() {
             var a = $('#<%=hdfStatus.ClientID%>').val();

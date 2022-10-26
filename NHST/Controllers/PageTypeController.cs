@@ -44,6 +44,7 @@ namespace NHST.Controllers
 
                 p.CreatedDate = CreatedDate;
                 p.CreatedBy = CreatedBy;
+                p.IsDelete = false;
                 dbe.tbl_PageType.Add(p);
                 dbe.Configuration.ValidateOnSaveEnabled = false;
                 int kq = dbe.SaveChanges();
@@ -73,20 +74,20 @@ namespace NHST.Controllers
                     {
                         p.ogimage = ogimage;
                     }
-             
+
                     p.metatitle = metatitle;
                     p.metadescription = metadescription;
                     p.metakeyword = metakeyword;
                     p.OGFacebookTitle = ogFBTitle;
                     p.OGFacebookDescription = ogFBDescription;
-              
+
                     if (!string.IsNullOrEmpty(ogFBIMG))
                     {
                         p.OGFacebookIMG = ogFBIMG;
                     }
                     p.OGTwitterTitle = ogTWtitle;
                     p.OGTwitterDescription = ogTWDescription;
-            
+
                     if (!string.IsNullOrEmpty(ogTWIMG))
                     {
                         p.OGTwitterIMG = ogTWIMG;
@@ -94,6 +95,23 @@ namespace NHST.Controllers
                     p.SideBar = SideBar;
                     p.ModifiedBy = ModifiedBy;
                     p.ModifiedDate = ModifiedDate;
+                    dbe.Configuration.ValidateOnSaveEnabled = false;
+                    dbe.SaveChanges();
+                    return "ok";
+                }
+                else
+                    return null;
+            }
+        }public static string UpdateDelete(int ID,string username, DateTime dateTime)
+        {
+            using (var dbe = new NHSTEntities())
+            {
+                var p = dbe.tbl_PageType.Where(pa => pa.ID == ID).FirstOrDefault();
+                if (p != null)
+                {
+                    p.IsDelete = true;
+                    p.ModifiedBy = username;
+                    p.ModifiedDate = dateTime;
                     dbe.Configuration.ValidateOnSaveEnabled = false;
                     dbe.SaveChanges();
                     return "ok";
@@ -110,7 +128,7 @@ namespace NHST.Controllers
             using (var dbe = new NHSTEntities())
             {
                 List<tbl_PageType> pages = new List<tbl_PageType>();
-                pages = dbe.tbl_PageType.OrderBy(p => p.IndexPos).ToList();
+                pages = dbe.tbl_PageType.Where(p => p.IsDelete == false).OrderBy(p => p.IndexPos).ToList();
                 if (pages.Count > 0)
                 {
                     return pages;
@@ -123,7 +141,7 @@ namespace NHST.Controllers
         {
             using (var dbe = new NHSTEntities())
             {
-                tbl_PageType page = dbe.tbl_PageType.Where(p => p.ID == ID).FirstOrDefault();
+                tbl_PageType page = dbe.tbl_PageType.Where(p => p.ID == ID && p.IsDelete == false).FirstOrDefault();
                 if (page != null)
                     return page;
                 else
@@ -144,11 +162,11 @@ namespace NHST.Controllers
         #endregion
 
         #region New
-     
+
         public static int GetTotalBySQL(string s)
         {
             var sql = @"select Total=Count(*) from tbl_PageType ";
-            sql += "where PageTypeName LIKE N'%" + s + "%'";
+            sql += "where PageTypeName LIKE N'%" + s + "%' and IsDelete != 1 ";
 
             var reader = (IDataReader)SqlHelper.ExecuteDataReader(sql);
             int a = 0;
@@ -165,6 +183,7 @@ namespace NHST.Controllers
         {
             var sql = @"select * from tbl_PageType ";
             sql += "where PageTypeName LIKE N'%" + s + "%'";
+            sql += " and IsDelete != 1 ";
             sql += "order by id OFFSET " + pageIndex + "*" + pageSize + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY";
 
             var reader = (IDataReader)SqlHelper.ExecuteDataReader(sql);

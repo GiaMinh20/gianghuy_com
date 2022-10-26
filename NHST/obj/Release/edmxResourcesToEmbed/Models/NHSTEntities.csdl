@@ -1155,6 +1155,7 @@
     <Property Name="OGTwitterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="OGTwitterIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SideBar" Type="Boolean" />
+    <Property Name="IsDelete" Type="Boolean" />
   </EntityType>
   <EntityType Name="tbl_PageSEO">
     <Key>
@@ -1202,6 +1203,7 @@
     <Property Name="OGTwitterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="OGTwitterIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SideBar" Type="Boolean" />
+    <Property Name="IsDelete" Type="Boolean" />
   </EntityType>
   <EntityType Name="tbl_Partners">
     <Key>

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NHST.manager {
-    
-    
-    public partial class EditPage {
-        
+namespace NHST.manager
+{
+
+
+    public partial class EditPage
+    {
+
         /// <summary>
         /// txtTitle control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTitle;
-        
+
         /// <summary>
         /// txtLink control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLink;
-        
+
         /// <summary>
         /// lbChuyenMuc control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox lbChuyenMuc;
-        
+
         /// <summary>
         /// txtShortDescription control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtShortDescription;
-        
+
         /// <summary>
         /// UpIMG control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload UpIMG;
-        
+
         /// <summary>
         /// UpIMGBefore control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image UpIMGBefore;
-        
+
         /// <summary>
         /// txtStatus control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStatus;
-        
+
         /// <summary>
         /// hdfStatus control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfStatus;
-        
+
         /// <summary>
         /// txtSideBar control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSideBar;
-        
+
         /// <summary>
         /// hdfSideBar control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfSideBar;
-        
+
         /// <summary>
         /// hdfDetail control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfDetail;
-        
+
         /// <summary>
         /// txtOGTitle control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOGTitle;
-        
+
         /// <summary>
         /// txtOGDescription control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOGDescription;
-        
+
         /// <summary>
         /// OGIMG control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload OGIMG;
-        
+
         /// <summary>
         /// OGIMGBefore control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image OGIMGBefore;
-        
+
         /// <summary>
         /// OGFacebookTitle control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox OGFacebookTitle;
-        
+
         /// <summary>
         /// OGFacebookDescription control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox OGFacebookDescription;
-        
+
         /// <summary>
         /// OGFacebookIMG control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload OGFacebookIMG;
-        
+
         /// <summary>
         /// OGFacebookIMGBefore control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image OGFacebookIMGBefore;
-        
+
         /// <summary>
         /// OGTwitterTitle control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox OGTwitterTitle;
-        
+
         /// <summary>
         /// OGTwitterDescription control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox OGTwitterDescription;
-        
+
         /// <summary>
         /// OGTwitterIMG control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload OGTwitterIMG;
-        
+
         /// <summary>
         /// OGTwitterIMGBefore control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image OGTwitterIMGBefore;
-        
+
         /// <summary>
         /// txtMetaTitle control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMetaTitle;
-        
+
         /// <summary>
         /// txtMetaDescription control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMetaDescription;
-        
+
         /// <summary>
         /// txtMetaKeyWord control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMetaKeyWord;
-        
+
         /// <summary>
         /// btnUpdate control.
         /// </summary>
@@ -254,5 +256,14 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
+
+        /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

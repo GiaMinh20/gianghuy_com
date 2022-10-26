@@ -15,7 +15,7 @@ namespace NHST.Controllers
         #region CRUD
         public static string Insert(string Title, string Summary, string IMG, string PageContent, bool IsHidden, int PageTypeID,
             int NodeID, string NodeAliasPath, string ogurl, string ogtitle, string ogdescription, string ogimage, string metatitle,
-            string metadescription, string metakeyword, DateTime CreatedDate, string CreatedBy, string ogFBTitle, string ogFBDescription, 
+            string metadescription, string metakeyword, DateTime CreatedDate, string CreatedBy, string ogFBTitle, string ogFBDescription,
             string ogFBIMG, string ogTWtitle, string ogTWDescription, string ogTWIMG, bool SideBar)
         {
             using (var dbe = new NHSTEntities())
@@ -30,7 +30,7 @@ namespace NHST.Controllers
                 p.NodeID = NodeID;
                 p.NodeAliasPath = NodeAliasPath;
                 p.ogurl = ogurl;
-                p.ogtitle = ogtitle;                
+                p.ogtitle = ogtitle;
                 p.ogdescription = ogdescription;
                 p.ogimage = ogimage;
                 p.metatitle = metatitle;
@@ -45,6 +45,7 @@ namespace NHST.Controllers
                 p.OGTwitterDescription = ogTWDescription;
                 p.OGTwitterIMG = ogTWIMG;
                 p.SideBar = SideBar;
+                p.IsDelete = false;
                 dbe.tbl_Page.Add(p);
                 dbe.Configuration.ValidateOnSaveEnabled = false;
                 int kq = dbe.SaveChanges();
@@ -69,7 +70,7 @@ namespace NHST.Controllers
                     {
                         p.IMG = IMG;
                     }
-            
+
                     p.PageContent = PageContent;
                     p.PageTypeID = PageTypeID;
                     p.IsHidden = IsHidden;
@@ -89,19 +90,38 @@ namespace NHST.Controllers
                     {
                         p.OGFacebookIMG = ogFBIMG;
                     }
-               
+
                     p.OGTwitterTitle = ogTWtitle;
                     p.OGTwitterDescription = ogTWDescription;
                     if (!string.IsNullOrEmpty(ogTWIMG))
                     {
                         p.OGTwitterIMG = ogTWIMG;
                     }
-                
+
                     p.SideBar = SideBar;
 
-     
+
                     p.ModifiedBy = ModifiedBy;
                     p.ModifiedDate = ModifiedDate;
+                    dbe.Configuration.ValidateOnSaveEnabled = false;
+                    dbe.SaveChanges();
+                    return "ok";
+                }
+                else
+                    return null;
+            }
+        }
+
+        public static string UpdateDelete(int ID, string username, DateTime dateTime)
+        {
+            using (var dbe = new NHSTEntities())
+            {
+                var p = dbe.tbl_Page.Where(pa => pa.ID == ID).FirstOrDefault();
+                if (p != null)
+                {
+                    p.IsDelete = true;
+                    p.ModifiedBy = username;
+                    p.ModifiedDate = dateTime;
                     dbe.Configuration.ValidateOnSaveEnabled = false;
                     dbe.SaveChanges();
                     return "ok";
@@ -131,7 +151,7 @@ namespace NHST.Controllers
             using (var dbe = new NHSTEntities())
             {
                 List<tbl_Page> pages = new List<tbl_Page>();
-                pages = dbe.tbl_Page.Where(p => p.PageTypeID == PageTypeID && p.IsHidden == false).OrderByDescending(p => p.ID).ToList();
+                pages = dbe.tbl_Page.Where(p => p.PageTypeID == PageTypeID && p.IsHidden == false && p.IsDelete == false).OrderByDescending(p => p.ID).ToList();
                 return pages;
             }
         }
@@ -140,7 +160,7 @@ namespace NHST.Controllers
             using (var dbe = new NHSTEntities())
             {
                 List<tbl_Page> pages = new List<tbl_Page>();
-                pages = dbe.tbl_Page.Where(p => p.PageTypeID == PageTypeID && p.IsHidden == false).OrderByDescending(x => x.ID).Take(TopN).ToList();
+                pages = dbe.tbl_Page.Where(p => p.PageTypeID == PageTypeID && p.IsHidden == false && p.IsDelete == false).OrderByDescending(x => x.ID).Take(TopN).ToList();
                 if (pages.Count > 0)
                 {
                     return pages;
@@ -176,7 +196,7 @@ namespace NHST.Controllers
         public static int GetTotal(string s)
         {
             var sql = @"select Total=Count(*) from tbl_Page ";
-            sql += "Where Title LIKE N'%" + s + "%' ";
+            sql += "Where Title LIKE N'%" + s + "%' and IsDelete != 1 ";
             var reader = (IDataReader)SqlHelper.ExecuteDataReader(sql);
             int a = 0;
             while (reader.Read())
@@ -188,9 +208,10 @@ namespace NHST.Controllers
         }
         public static List<PageNew> GetAllBySQL(string s, int pageIndex, int pageSize)
         {
-            var sql = @"select a.ID, a.Title, IsHidden, a.CreatedDate, b.PageTypeName from tbl_Page as a left join tbl_PageType as b on a.PageTypeID=b.ID ";
+            var sql = @"select a.ID, a.Title, IsHidden, a.CreatedDate, b.PageTypeName from tbl_Page as a left join tbl_PageType as b on a.PageTypeID=b.ID and b.IsDelete != 1";
             sql += "Where Title LIKE N'%" + s + "%' ";
-            sql += "order by id DESC OFFSET " + pageIndex + "*" + pageSize + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY";
+            sql += " and a.IsDelete != 1 ";
+            sql += " order by id DESC OFFSET " + pageIndex + "*" + pageSize + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY";
             var reader = (IDataReader)SqlHelper.ExecuteDataReader(sql);
             List<PageNew> a = new List<PageNew>();
             while (reader.Read())

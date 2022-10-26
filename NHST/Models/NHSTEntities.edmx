@@ -1088,6 +1088,7 @@
           <Property Name="OGTwitterDescription" Type="nvarchar(max)" />
           <Property Name="OGTwitterIMG" Type="nvarchar(max)" />
           <Property Name="SideBar" Type="bit" />
+          <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_PageSEO">
           <Key>
@@ -1135,6 +1136,7 @@
           <Property Name="OGTwitterDescription" Type="nvarchar(max)" />
           <Property Name="OGTwitterIMG" Type="nvarchar(max)" />
           <Property Name="SideBar" Type="bit" />
+          <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_Partners">
           <Key>
@@ -3733,6 +3735,7 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <Property Name="OGTwitterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OGTwitterIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SideBar" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_PageSEO">
           <Key>
@@ -3780,6 +3783,7 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <Property Name="OGTwitterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OGTwitterIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SideBar" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_Partners">
           <Key>
@@ -5935,6 +5939,7 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <EntitySetMapping Name="tbl_Page">
             <EntityTypeMapping TypeName="NHSTModel.tbl_Page">
               <MappingFragment StoreEntitySet="tbl_Page">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="SideBar" ColumnName="SideBar" />
                 <ScalarProperty Name="OGTwitterIMG" ColumnName="OGTwitterIMG" />
                 <ScalarProperty Name="OGTwitterDescription" ColumnName="OGTwitterDescription" />
@@ -5987,6 +5992,7 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <EntitySetMapping Name="tbl_PageType">
             <EntityTypeMapping TypeName="NHSTModel.tbl_PageType">
               <MappingFragment StoreEntitySet="tbl_PageType">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="SideBar" ColumnName="SideBar" />
                 <ScalarProperty Name="OGTwitterIMG" ColumnName="OGTwitterIMG" />
                 <ScalarProperty Name="OGTwitterDescription" ColumnName="OGTwitterDescription" />

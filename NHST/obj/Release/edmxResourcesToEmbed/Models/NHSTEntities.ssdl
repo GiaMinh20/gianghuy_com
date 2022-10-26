@@ -1083,6 +1083,7 @@
     <Property Name="OGTwitterDescription" Type="nvarchar(max)" />
     <Property Name="OGTwitterIMG" Type="nvarchar(max)" />
     <Property Name="SideBar" Type="bit" />
+    <Property Name="IsDelete" Type="bit" />
   </EntityType>
   <EntityType Name="tbl_PageSEO">
     <Key>
@@ -1130,6 +1131,7 @@
     <Property Name="OGTwitterDescription" Type="nvarchar(max)" />
     <Property Name="OGTwitterIMG" Type="nvarchar(max)" />
     <Property Name="SideBar" Type="bit" />
+    <Property Name="IsDelete" Type="bit" />
   </EntityType>
   <EntityType Name="tbl_Partners">
     <Key>

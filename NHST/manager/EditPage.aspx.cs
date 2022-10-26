@@ -96,6 +96,27 @@ namespace NHST.manager
                 }
             }
         }
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid) return;
+            string Email = Session["userLoginSystem"].ToString();
+            DateTime currentDate = DateTime.Now;
+            int NewsID = ViewState["NID"].ToString().ToInt(0);
+            string BackLink = "/manager/PageList.aspx";
+            var news = PageController.GetByID(NewsID);
+            if (news != null)
+            {
+                string kq = PageController.UpdateDelete(NewsID, Email, currentDate);
+                if (kq == "ok")
+                {
+                    PJUtils.ShowMessageBoxSwAlertBackToLink("Xóa trang thành công.", "s", true, BackLink, Page);
+                }
+                else
+                {
+                    PJUtils.ShowMessageBoxSwAlert("Có lỗi trong quá trình xóa trang. Vui lòng thử lại.", "e", true, Page);
+                }
+            }
+        }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid) return;

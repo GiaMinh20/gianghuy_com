@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/manager/adminMasterNew.Master" ValidateRequest="false" AutoEventWireup="true" CodeBehind="Edit-Paget-Type.aspx.cs" Inherits="NHST.manager.Edit_Paget_Type" %>
+
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -17,11 +18,11 @@
                     <div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <asp:TextBox runat="server" id="txtName" type="text" class="validate" required value="Bảng giá"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtName" type="text" class="validate" required value="Bảng giá"></asp:TextBox>
                                 <label for="post_title"><span class="red-text">*</span> Tên chuyên mục: </label>
                                 <span class="helper-text" data-error="Vui lòng nhập tên danh mục"></span>
                             </div>
-                            <div class="input-field col s12 m6" style="display:none">
+                            <div class="input-field col s12 m6" style="display: none">
                                 <div class="switch status-func">
                                     <span class="mr-2">SideBar: </span>
                                     <label>
@@ -34,33 +35,33 @@
                             <asp:HiddenField runat="server" ID="hdfSideBar" Value="0" />
                         </div>
                         <textarea class="content-editor" id="editor"></textarea>
-                        <asp:HiddenField runat="server" ID="hdfDeltail"/>
+                        <asp:HiddenField runat="server" ID="hdfDeltail" />
                         <h5 class="center-align pt-2">Hỗ trợ SEO</h5>
-                        <div class="row mt-3">                           
+                        <div class="row mt-3">
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" id="txtOGTitle" type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtOGTitle" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="txtOGTitle">OG Title</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" id="txtOGDescription" type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtOGDescription" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="txtOGDescription">OG Description</label>
                             </div>
                             <div class="input-field file-field col s12 m12">
                                 <span class="black-text">OG Image</span>
                                 <div style="display: inline-block; margin-left: 15px;">
                                     <asp:FileUpload runat="server" ID="OGImage" class="upload-img" type="file" onchange="previewFiles(this);" title=""></asp:FileUpload>
-                                    <button class="btn-upload">Upload</button>                                  
+                                    <button class="btn-upload">Upload</button>
                                 </div>
-                                <div class="preview-img-default" >
-                                      <asp:Image ID="OGImageBefore" style="max-height: 100px; max-width: 100px;" runat="server" />
+                                <div class="preview-img-default">
+                                    <asp:Image ID="OGImageBefore" Style="max-height: 100px; max-width: 100px;" runat="server" />
                                 </div>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGFacebookTitle" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGFacebookTitle" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-title">OG Facebook Title</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGFacebookDescription" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGFacebookDescription" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-description">OG Facebook Description</label>
                             </div>
                             <div class="input-field file-field col s12 m12">
@@ -70,15 +71,15 @@
                                     <button class="btn-upload" type="button">Upload</button>
                                 </div>
                                 <div class="preview-img-facebook">
-                                     <asp:Image ID="OGFacebookIMGBefore" style="max-height: 100px; max-width: 100px;" runat="server" />
+                                    <asp:Image ID="OGFacebookIMGBefore" Style="max-height: 100px; max-width: 100px;" runat="server" />
                                 </div>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGTwitterTitle" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGTwitterTitle" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-title">OG Twitter Title</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" ID="OGTwitterDescription" placeholder=""  type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="OGTwitterDescription" placeholder="" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_og-description">OG Twitter Description</label>
                             </div>
                             <div class="input-field file-field col s12 m12">
@@ -88,30 +89,32 @@
                                     <button class="btn-upload" type="button">Upload</button>
                                 </div>
                                 <div class="preview-img-twitter">
-                                    <asp:Image ID="OGTwitterIMGBefore" style="max-height: 100px; max-width: 100px;" runat="server" />
+                                    <asp:Image ID="OGTwitterIMGBefore" Style="max-height: 100px; max-width: 100px;" runat="server" />
                                 </div>
                             </div>
                             <div class="input-field col s12 m6">
-                                <asp:TextBox runat="server" id="txtMetaTitle" type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtMetaTitle" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_meta-title">Meta Title</label>
                             </div>
                             <div class="input-field col s12 m12">
-                                <asp:TextBox runat="server" id="txtMetaDescription" type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtMetaDescription" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_meta-description">Meta Description</label>
                             </div>
                             <div class="input-field col s12 m12">
                                 <asp:TextBox runat="server" placeholder="Cách nhau bởi dấu phẩy VD : muahang,trungquoc,vietnam"
-                                    id="txtMetaKeyWord" type="text" class="validate" data-type="text-only"></asp:TextBox>
+                                    ID="txtMetaKeyWord" type="text" class="validate" data-type="text-only"></asp:TextBox>
                                 <label for="add_meta-keyword">Meta Keyword</label>
                             </div>
 
                         </div>
                         <div class="row mt-3">
-                            <div class="col s12">
-                                <a id="test" class="btn white-text"  onclick="myFunction()">Cập nhật</a>
-                                <asp:Button style="display:none" runat="server" ID="btnUpdate" class="btn  white-text" Text="Cập nhật" OnClick="btnSave_Click"></asp:Button>
-                              <%--  <a href="javascript:;" class="btn waves-effect" id="preview-btn">Xem trước</a>--%>
-                              
+                            <div class="col ">
+                                <a id="test" class="btn white-text" onclick="myFunction()">Cập nhật</a>
+                                <asp:Button Style="display: none" runat="server" ID="btnUpdate" class="btn  white-text" Text="Cập nhật" OnClick="btnSave_Click"></asp:Button>
+                            </div>
+                            <div class="col ">
+                                <a id="test" class="btn white-text" onclick="myFunctionDelete()">Xóa</a>
+                                <asp:Button Style="display: none" runat="server" ID="btnDelete" class="btn  white-text" Text="Xóa" OnClick="btnDelete_Click"></asp:Button>
                             </div>
                         </div>
                     </div>
@@ -129,6 +132,11 @@
             var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
             $('#<%=hdfDeltail.ClientID%>').val(content);
             $('#<%=btnUpdate.ClientID%>').click();
+
+        }
+        function myFunctionDelete() {
+            var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+            $('#<%=btnDelete.ClientID%>').click();
 
         }
         function loadata() {

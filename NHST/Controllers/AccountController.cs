@@ -470,7 +470,7 @@ namespace NHST.Controllers
         }
         public static tbl_Account GetByID(int ID)
         {
-            using (var dbe = new NHSTEntities())
+            using (var dbe = new NHSTEntities())  
             {
                 tbl_Account acc = dbe.tbl_Account.Where(a => a.ID == ID).FirstOrDefault();
                 if (acc != null)

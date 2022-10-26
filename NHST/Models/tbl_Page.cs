@@ -41,5 +41,6 @@ namespace NHST.Models
         public string OGTwitterDescription { get; set; }
         public string OGTwitterIMG { get; set; }
         public Nullable<bool> SideBar { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     }
 }

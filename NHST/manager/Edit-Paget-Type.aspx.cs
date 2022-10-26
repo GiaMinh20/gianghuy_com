@@ -141,7 +141,7 @@ namespace NHST.manager
                             {
                                 if (f.ContentType == "image/png" || f.ContentType == "image/jpeg" || f.ContentType == "image/jpg")
                                 {
-                                   // var o = KhieuNaiIMG + Guid.NewGuid() + Path.GetExtension(f.FileName);
+                                    // var o = KhieuNaiIMG + Guid.NewGuid() + Path.GetExtension(f.FileName);
                                     try
                                     {
                                         //f.SaveAs(Server.MapPath(o));
@@ -245,6 +245,28 @@ namespace NHST.manager
                 else
                 {
                     PJUtils.ShowMessageBoxSwAlert("Có lỗi trong quá trình cập nhật danh mục. Vui lòng thử lại.", "e", true, Page);
+                }
+            }
+        }
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid) return;
+            string Email = Session["userLoginSystem"].ToString();
+
+            int NewsID = ViewState["NID"].ToString().ToInt(0);
+            DateTime currentDate = DateTime.Now;
+            var news = PageTypeController.GetByID(NewsID);
+            string BackLink = "/manager/Page-Type-List.aspx";
+            if (news != null)
+            {
+                string kq = PageTypeController.UpdateDelete(NewsID,Email,currentDate);
+                if (kq == "ok")
+                {
+                    PJUtils.ShowMessageBoxSwAlertBackToLink("Xóa danh mục thành công.", "s", true, BackLink, Page);
+                }
+                else
+                {
+                    PJUtils.ShowMessageBoxSwAlert("Có lỗi trong quá trình xóa danh mục. Vui lòng thử lại.", "e", true, Page);
                 }
             }
         }
