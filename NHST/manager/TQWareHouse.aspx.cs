@@ -114,173 +114,179 @@ namespace NHST.manager
                             pa.PackageAllType = 0;
                             pa.PackageGetCount = packages.Count;
                             List<OrderGet> og = new List<OrderGet>();
+
+                            int mainOrderCount = 0;
+                            int transOrderCount = 0;
                             foreach (var package in packages)
                             {
-                                OrderGet o = new OrderGet();
-                                if (package.Status == 0)
-                                {
-                                    SmallPackageController.UpdateStatus(package.ID, 0, currentDate, username);
-                                }
-                                else
-                                {
-                                    SmallPackageController.UpdateStatus(package.ID, 2, currentDate, username);
-                                    SmallPackageController.UpdateDateInTQWareHouse(package.ID, username, currentDate);
-                                }
-
                                 var mainorder = MainOrderController.GetAllByID(Convert.ToInt32(package.MainOrderID));
                                 if (mainorder != null)
                                 {
-                                    int MainorderID = mainorder.ID;
-                                    var smallpackages = SmallPackageController.GetByMainOrderID(MainorderID);
-                                    if (smallpackages.Count > 0)
-                                    {
-                                        bool isChuaVekhoTQ = true;
-                                        var sp_main = smallpackages.Where(s => s.IsTemp != true).ToList();
-                                        var sp_support_isvekhotq = smallpackages.Where(s => s.IsTemp == true && s.Status > 1).ToList();
-                                        var sp_main_isvekhotq = smallpackages.Where(s => s.IsTemp != true && s.Status > 1).ToList();
-                                        double che = sp_support_isvekhotq.Count + sp_main_isvekhotq.Count;
-                                        if (che >= sp_main.Count)
-                                        {
-                                            isChuaVekhoTQ = false;
-                                        }
-                                        if (isChuaVekhoTQ == false)
-                                        {
-                                            MainOrderController.UpdateStatus(MainorderID, Convert.ToInt32(mainorder.UID), 6);
+                                    mainOrderCount++;
+                                    continue;
+                                    #region quét mã đơn mua hộ
+                                    // int MainorderID = mainorder.ID;
+                                    // var smallpackages = SmallPackageController.GetByMainOrderID(MainorderID);
+                                    // if (smallpackages.Count > 0)
+                                    // {
+                                    //     bool isChuaVekhoTQ = true;
+                                    //     var sp_main = smallpackages.Where(s => s.IsTemp != true).ToList();
+                                    //     var sp_support_isvekhotq = smallpackages.Where(s => s.IsTemp == true && s.Status > 1).ToList();
+                                    //     var sp_main_isvekhotq = smallpackages.Where(s => s.IsTemp != true && s.Status > 1).ToList();
+                                    //     double che = sp_support_isvekhotq.Count + sp_main_isvekhotq.Count;
+                                    //     if (che >= sp_main.Count)
+                                    //     {
+                                    //         isChuaVekhoTQ = false;
+                                    //     }
+                                    //     if (isChuaVekhoTQ == false)
+                                    //     {
+                                    //         MainOrderController.UpdateStatus(MainorderID, Convert.ToInt32(mainorder.UID), 6);
 
-                                            var setNoti = SendNotiEmailController.GetByID(8);
-                                            if (setNoti != null)
-                                            {
-                                                var acc = AccountController.GetByID(mainorder.UID.Value);
-                                                if (acc != null)
-                                                {
-                                                    if (setNoti.IsSentNotiUser == true)
-                                                    {
-                                                        if (mainorder.OrderType == 1)
-                                                        {
-                                                            NotificationsController.Inser(acc.ID, acc.Username, MainorderID, "Hàng của đơn hàng " + MainorderID + " đã về kho TQ.",
-                                   1, currentDate, username, true);
-                                                        }
-                                                        else
-                                                        {
-                                                            NotificationsController.Inser(acc.ID, acc.Username, MainorderID, "Hàng của đơn hàng TMĐT " + MainorderID + " đã về kho TQ.",
-                                   11, currentDate, username, true);
-                                                        }
-                                                    }
+                                    //         var setNoti = SendNotiEmailController.GetByID(8);
+                                    //         if (setNoti != null)
+                                    //         {
+                                    //             var acc = AccountController.GetByID(mainorder.UID.Value);
+                                    //             if (acc != null)
+                                    //             {
+                                    //                 if (setNoti.IsSentNotiUser == true)
+                                    //                 {
+                                    //                     if (mainorder.OrderType == 1)
+                                    //                     {
+                                    //                         NotificationsController.Inser(acc.ID, acc.Username, MainorderID, "Hàng của đơn hàng " + MainorderID + " đã về kho TQ.",
+                                    //1, currentDate, username, true);
+                                    //                     }
+                                    //                     else
+                                    //                     {
+                                    //                         NotificationsController.Inser(acc.ID, acc.Username, MainorderID, "Hàng của đơn hàng TMĐT " + MainorderID + " đã về kho TQ.",
+                                    //11, currentDate, username, true);
+                                    //                     }
+                                    //                 }
 
-                                                    if (setNoti.IsSendEmailUser == true)
-                                                    {
-                                                        try
-                                                        {
-                                                            PJUtils.SendMailGmail("gianghuycom@gmail.com.vn", "zioghzphiauqbdmw", acc.Email,
-                                                                "Thông báo tại GIANGHUY.COM.", "Hàng của đơn hàng " + MainorderID + " đã về kho TQ.", "");
-                                                        }
-                                                        catch { }
-                                                    }
-                                                }
+                                    //                 if (setNoti.IsSendEmailUser == true)
+                                    //                 {
+                                    //                     try
+                                    //                     {
+                                    //                         PJUtils.SendMailGmail("gianghuycom@gmail.com.vn", "zioghzphiauqbdmw", acc.Email,
+                                    //                             "Thông báo tại GIANGHUY.COM.", "Hàng của đơn hàng " + MainorderID + " đã về kho TQ.", "");
+                                    //                     }
+                                    //                     catch { }
+                                    //                 }
+                                    //             }
 
-                                            }
-                                        }
-                                    }
+                                    //         }
+                                    //     }
+                                    // }
 
-                                    int UID = 0;
-                                    string Phone = "";
-                                    string Username = "";
+                                    // int UID = 0;
+                                    // string Phone = "";
+                                    // string Username = "";
 
-                                    var userorder = AccountController.GetByID(mainorder.UID.Value);
-                                    if (userorder != null)
-                                    {
-                                        UID = userorder.ID;
-                                        Phone = AccountInfoController.GetByUserID(userorder.ID).Phone;
-                                        username = userorder.Username;
-                                    }
+                                    // var userorder = AccountController.GetByID(mainorder.UID.Value);
+                                    // if (userorder != null)
+                                    // {
+                                    //     UID = userorder.ID;
+                                    //     Phone = AccountInfoController.GetByUserID(userorder.ID).Phone;
+                                    //     username = userorder.Username;
+                                    // }
 
-                                    o.UID = UID;
-                                    o.Phone = Phone;
-                                    o.Username = username;
+                                    // o.UID = UID;
+                                    // o.Phone = Phone;
+                                    // o.Username = username;
 
-                                    o.ID = package.ID;
-                                    o.OrderType = "Đơn hàng mua hộ";
-                                    o.OrderTypeInt = 1;
-                                    o.BigPackageID = Convert.ToInt32(package.BigPackageID);
-                                    o.BarCode = package.OrderTransactionCode;
-                                    o.TotalWeight = Math.Round(Convert.ToDouble(package.Weight), 5).ToString();
-                                    o.Status = Convert.ToInt32(package.Status);
-                                    o.IMG = package.ListIMG;
-                                    int mainOrderID = Convert.ToInt32(package.MainOrderID);
-                                    o.MainorderID = mainOrderID;
-                                    o.TransportationID = 0;
-                                    o.OrderShopCode = mainorder.MainOrderCode;
-                                    var orders = OrderController.GetByMainOrderID(mainOrderID);
-                                    o.Soloaisanpham = orders.Count.ToString();
-                                    double totalProductQuantity = 0;
-                                    if (orders.Count > 0)
-                                    {
-                                        foreach (var p in orders)
-                                        {
-                                            totalProductQuantity += Convert.ToDouble(p.quantity);
-                                        }
-                                    }
-                                    o.Soluongsanpham = totalProductQuantity.ToString();
-                                    if (mainorder.IsCheckProduct == true)
-                                        o.Kiemdem = "Có";
-                                    else
-                                        o.Kiemdem = "Không";
-                                    if (mainorder.IsPacked == true)
-                                        o.Donggo = "Có";
-                                    else
-                                        o.Donggo = "Không";
-                                    o.Baohiem = "Không";
+                                    // o.ID = package.ID;
+                                    // o.OrderType = "Đơn hàng mua hộ";
+                                    // o.OrderTypeInt = 1;
+                                    // o.BigPackageID = Convert.ToInt32(package.BigPackageID);
+                                    // o.BarCode = package.OrderTransactionCode;
+                                    // o.TotalWeight = Math.Round(Convert.ToDouble(package.Weight), 5).ToString();
+                                    // o.Status = Convert.ToInt32(package.Status);
+                                    // o.IMG = package.ListIMG;
+                                    // int mainOrderID = Convert.ToInt32(package.MainOrderID);
+                                    // o.MainorderID = mainOrderID;
+                                    // o.TransportationID = 0;
+                                    // o.OrderShopCode = mainorder.MainOrderCode;
+                                    // var orders = OrderController.GetByMainOrderID(mainOrderID);
+                                    // o.Soloaisanpham = orders.Count.ToString();
+                                    // double totalProductQuantity = 0;
+                                    // if (orders.Count > 0)
+                                    // {
+                                    //     foreach (var p in orders)
+                                    //     {
+                                    //         totalProductQuantity += Convert.ToDouble(p.quantity);
+                                    //     }
+                                    // }
+                                    // o.Soluongsanpham = totalProductQuantity.ToString();
+                                    // if (mainorder.IsCheckProduct == true)
+                                    //     o.Kiemdem = "Có";
+                                    // else
+                                    //     o.Kiemdem = "Không";
+                                    // if (mainorder.IsPacked == true)
+                                    //     o.Donggo = "Có";
+                                    // else
+                                    //     o.Donggo = "Không";
+                                    // o.Baohiem = "Không";
 
-                                    if (!string.IsNullOrEmpty(package.UserNote))
-                                        o.Khachghichu = package.UserNote;
-                                    else
-                                        o.Khachghichu = string.Empty;
+                                    // if (!string.IsNullOrEmpty(package.UserNote))
+                                    //     o.Khachghichu = package.UserNote;
+                                    // else
+                                    //     o.Khachghichu = string.Empty;
 
-                                    if (!string.IsNullOrEmpty(package.Description))
-                                        o.Note = package.Description;
-                                    else
-                                        o.Note = string.Empty;
-                                    o.Loaisanpham = package.ProductType;
-                                    if (!string.IsNullOrEmpty(package.StaffNoteCheck))
-                                        o.NVKiemdem = package.StaffNoteCheck;
-                                    else
-                                        o.NVKiemdem = string.Empty;
-                                    var listb = BigPackageController.GetAllWithStatus(1);
-                                    if (listb.Count > 0)
-                                    {
-                                        o.ListBig = listb;
-                                    }
-                                    o.IsTemp = 0;
+                                    // if (!string.IsNullOrEmpty(package.Description))
+                                    //     o.Note = package.Description;
+                                    // else
+                                    //     o.Note = string.Empty;
+                                    // o.Loaisanpham = package.ProductType;
+                                    // if (!string.IsNullOrEmpty(package.StaffNoteCheck))
+                                    //     o.NVKiemdem = package.StaffNoteCheck;
+                                    // else
+                                    //     o.NVKiemdem = string.Empty;
+                                    // var listb = BigPackageController.GetAllWithStatus(1);
+                                    // if (listb.Count > 0)
+                                    // {
+                                    //     o.ListBig = listb;
+                                    // }
+                                    // o.IsTemp = 0;
 
-                                    double dai = 0;
-                                    double rong = 0;
-                                    double cao = 0;
-                                    if (package.Length != null)
-                                    {
-                                        dai = Convert.ToDouble(package.Length);
-                                    }
-                                    if (package.Width != null)
-                                    {
-                                        rong = Convert.ToDouble(package.Width);
-                                    }
-                                    if (package.Height != null)
-                                    {
-                                        cao = Convert.ToDouble(package.Height);
-                                    }
-                                    o.dai = dai;
-                                    o.rong = rong;
-                                    o.cao = cao;
+                                    // double dai = 0;
+                                    // double rong = 0;
+                                    // double cao = 0;
+                                    // if (package.Length != null)
+                                    // {
+                                    //     dai = Convert.ToDouble(package.Length);
+                                    // }
+                                    // if (package.Width != null)
+                                    // {
+                                    //     rong = Convert.ToDouble(package.Width);
+                                    // }
+                                    // if (package.Height != null)
+                                    // {
+                                    //     cao = Convert.ToDouble(package.Height);
+                                    // }
+                                    // o.dai = dai;
+                                    // o.rong = rong;
+                                    // o.cao = cao;
 
 
-                                    og.Add(o);
+                                    // og.Add(o);
+                                    #endregion
                                 }
                                 else
                                 {
+                                    OrderGet o = new OrderGet();
+                                    if (package.Status == 0)
+                                    {
+                                        SmallPackageController.UpdateStatus(package.ID, 0, currentDate, username);
+                                    }
+                                    else
+                                    {
+                                        SmallPackageController.UpdateStatus(package.ID, 2, currentDate, username);
+                                        SmallPackageController.UpdateDateInTQWareHouse(package.ID, username, currentDate);
+                                    }
                                     var orderTransportation = TransportationOrderNewController.GetByID(Convert.ToInt32(package.TransportationOrderID));
                                     if (orderTransportation != null)
                                     {
                                         int tID = orderTransportation.ID;
-                                        
+
                                         int UID = 0;
                                         string Phone = "";
                                         string Username = "";
@@ -425,13 +431,19 @@ namespace NHST.manager
                                         o.PTVC = string.Empty;
                                         og.Add(o);
                                     }
+                                    transOrderCount++;
                                 }
                             }
-                            pa.listPackageGet = og;
-                            palls.Add(pa);
-                            bo.Pall = palls;
-                            JavaScriptSerializer serializer = new JavaScriptSerializer();
-                            return serializer.Serialize(bo);
+                            if (og.Count > 0)
+                            {
+                                pa.listPackageGet = og;
+                                palls.Add(pa);
+                                bo.Pall = palls;
+                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                return serializer.Serialize(bo);
+                            }
+                            if (mainOrderCount > 0 && transOrderCount == 0)
+                                return "wrongwarehouse";
                         }
                         else
                         {
@@ -590,7 +602,6 @@ namespace NHST.manager
                                     #endregion
                                     pa.listPackageGet = og;
                                     palls.Add(pa);
-
                                 }
                                 bo.Pall = palls;
                                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -1090,7 +1101,7 @@ namespace NHST.manager
                                         }
                                         #endregion
                                     }
-                                    else if(!string.IsNullOrEmpty(UserPhone))
+                                    else if (!string.IsNullOrEmpty(UserPhone))
                                     {
                                         int MainOrderID = 0;
                                         string temp = "";

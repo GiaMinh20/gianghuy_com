@@ -616,7 +616,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
-                        if (msg.d != "none") {
+                        if (msg.d != "none" && msg.d != "wrongwarehouse") {
                             var listdata = JSON.parse(msg.d);
                             if (listdata != "none") {
                                 var bo = listdata;
@@ -2163,6 +2163,9 @@
                                 })
                                 .tooltip('show');
                         }
+                        else if (msg.d == "wrongwarehouse") {
+                            alert("Sai hình thức kiểm hàng rồi kìa");
+                        }
                         else {
                             //document.getElementById('audio').play();
                             var r = confirm("Kiện hàng này chưa có, bạn muốn thêm mới kiện này?");
@@ -2331,7 +2334,8 @@
             pwa.document.open();
             pwa.document.write(VoucherSourcetoPrint(source));
             pwa.document.close();
-        }
+        }
+
         function printBarcode(barcode) {
             //var barcode = "12341234-4123412342134";
             console.log(barcode);

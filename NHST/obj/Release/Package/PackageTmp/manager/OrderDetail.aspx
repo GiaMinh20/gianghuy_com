@@ -213,7 +213,10 @@
                                         <thead>
                                             <tr>
                                                 <th>Mã vận đơn</th>
-                                                <th>Cân nặng</th>
+                                                <th>Cân nặng (kg)</th>
+                                                <th>Cân quy đổi (kg)</th>
+                                                <th>Cân tính tiền (kg)</th>
+                                                <th>Kích thước (DxRxC)</th>
                                                 <th>Mã đơn hàng</th>
                                                 <th>Trạng thái</th>
                                                 <th class="tb-date">Ghi chú</th>
@@ -373,7 +376,7 @@
                                         </div>
 
 
-                                         <div class="order-row">
+                                        <div class="order-row">
                                             <div class="left-fixed">
                                                 <p class="txt">Tiền giảm giá</p>
                                             </div>
@@ -447,7 +450,7 @@
                                                 </p>
                                             </div>
                                             <div class="right-content">
-                                               <%-- <div class="row">
+                                                <%-- <div class="row">
                                                     <div class="input-field col s12 m6">
                                                         <asp:TextBox runat="server" ID="pWeightNDT" placeholder="0" type="text" onkeyup="returnWeightFee()" value=""></asp:TextBox>
                                                         <label>Cân nặng (Kg)</label>
@@ -463,7 +466,7 @@
                                                         <label>Cân nặng (Kg)</label>
                                                     </div>
                                                     <div class="input-field col s12 m6">
-                                                        <asp:TextBox runat="server" ID="pWeight" placeholder="0" type="text"  value=""></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="pWeight" placeholder="0" type="text" value=""></asp:TextBox>
                                                         <label>Việt Nam Đồng (VNĐ)</label>
                                                     </div>
                                                 </div>

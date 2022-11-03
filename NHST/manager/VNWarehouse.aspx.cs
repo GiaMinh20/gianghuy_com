@@ -103,6 +103,10 @@ namespace NHST.manager
                             {
                                 foreach (var item in smallpackages)
                                 {
+                                    //Kiểm tra smallpackage có phải của đơn mua hộ hay không
+                                    var mainOrder = MainOrderController.GetByID(item.MainOrderID ?? 0);
+                                    if (mainOrder != null)
+                                        continue;
                                     smallpackageitem si = new smallpackageitem();
                                     int mID = Convert.ToInt32(item.MainOrderID);
                                     int tID = Convert.ToInt32(item.TransportationOrderID);
@@ -597,7 +601,7 @@ namespace NHST.manager
                     SmallPackageController.UpdateStaffNoteCustdescproducttype(package.ID, nvkiemdem,
                         khachghichu, loaisanpham);
 
-                  
+
                     if (status == 3)
                     {
                         SmallPackageController.UpdateDateInVNWareHouse(package.ID, username_current, currentDate);
@@ -738,8 +742,8 @@ namespace NHST.manager
                         int tID = transportation.ID;
                         int warehouseFrom = Convert.ToInt32(transportation.WareHouseFromID);
                         int warehouse = Convert.ToInt32(transportation.WareHouseID);
-                        int shipping = Convert.ToInt32(transportation.ShippingTypeID);     
-                        var packages = SmallPackageController.GetByTransportationOrderID(tID);                        
+                        int shipping = Convert.ToInt32(transportation.ShippingTypeID);
+                        var packages = SmallPackageController.GetByTransportationOrderID(tID);
                         var usercreate = AccountController.GetByID(Convert.ToInt32(transportation.UID));
                         double totalweight = 0;
                         double returnprice = 0;

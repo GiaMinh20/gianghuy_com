@@ -29,7 +29,7 @@
             <div class="content-wrapper-before bg-dark-gradient"></div>
             <div class="page-title">
                 <div class="card-panel">
-                    <h4 class="title no-margin" style="display: inline-block;">Kiểm hàng Việt Nam</h4>
+                    <h4 class="title no-margin" style="display: inline-block;">Kiểm hàng Việt Nam - Đơn ký gửi</h4>
                 </div>
             </div>
             <div class="list-staff col s12 section">

@@ -5,6 +5,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\OneDrive\Máy tính\gianghuy</_PublishTargetUrl>
+    <History>True|2022-10-31T06:55:07.0510337Z;</History>
+    <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="App.Master">
@@ -26885,10 +26887,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/12/2022 13:41:57</publishTime>
     </File>
     <File Include="bin/NHST.dll">
-      <publishTime>10/26/2022 10:56:16</publishTime>
+      <publishTime>11/03/2022 16:28:47</publishTime>
     </File>
     <File Include="bin/NHST.pdb">
-      <publishTime>10/26/2022 10:56:16</publishTime>
+      <publishTime>11/03/2022 16:28:47</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>01/12/2022 13:41:58</publishTime>
@@ -27329,10 +27331,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/23/2022 23:24:44</publishTime>
     </File>
     <File Include="manager/OrderDetail.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>10/28/2022 13:59:10</publishTime>
     </File>
     <File Include="manager/OrderList.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>11/01/2022 16:12:22</publishTime>
     </File>
     <File Include="manager/outstock-finish-vch.aspx">
       <publishTime>10/23/2022 23:24:44</publishTime>
@@ -27485,10 +27487,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/23/2022 23:24:44</publishTime>
     </File>
     <File Include="manager/TQWareHouse-DHH.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>11/03/2022 16:28:21</publishTime>
     </File>
     <File Include="manager/TQWareHouse.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>11/03/2022 16:28:22</publishTime>
     </File>
     <File Include="manager/trade-history.aspx">
       <publishTime>10/23/2022 23:24:44</publishTime>
@@ -27533,10 +27535,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/23/2022 23:24:44</publishTime>
     </File>
     <File Include="manager/VNWarehouse-DHH.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>11/03/2022 14:56:56</publishTime>
     </File>
     <File Include="manager/VNWarehouse.aspx">
-      <publishTime>10/23/2022 23:24:44</publishTime>
+      <publishTime>11/03/2022 14:55:43</publishTime>
     </File>
     <File Include="manager/Warehouse-from-list.aspx">
       <publishTime>10/23/2022 23:24:44</publishTime>
@@ -27857,7 +27859,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/23/2022 23:24:44</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/26/2022 10:56:28</publishTime>
+      <publishTime>10/28/2022 14:20:23</publishTime>
     </File>
     <File Include="WebForm1.aspx">
       <publishTime>10/23/2022 23:24:44</publishTime>

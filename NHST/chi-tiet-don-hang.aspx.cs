@@ -627,7 +627,7 @@ namespace NHST
                         {
                             foreach (var s in smallpackages)
                             {
-                                double? canQuyDoi = ((s.Length ?? 0) * (s.Width ?? 0) * (s.Height ?? 0) / 6000);
+                                double? canQuyDoi = ((s.Length ?? 0) * (s.Width ?? 0) * (s.Height ?? 0) / 7000);
 
                                 double? canTinhTien = canQuyDoi > s.Weight ? canQuyDoi : s.Weight;
 
@@ -635,7 +635,7 @@ namespace NHST
                                 ltrSmallPackages.Text += "<td>" + s.OrderTransactionCode + "</td>";
                                 ltrSmallPackages.Text += "<td>" + Math.Round(Convert.ToDouble(s.Weight), 1) + "</td>";
                                 ltrSmallPackages.Text += $"<td> {s.Length} x {s.Width} x {s.Height}</td>";
-                                ltrSmallPackages.Text += $"<td> {Math.Round(canTinhTien ?? 0, 2)}</td>";
+                                ltrSmallPackages.Text += $"<td> {Math.Round(canTinhTien ?? 0, 1)}</td>";
                                 ltrSmallPackages.Text += "<td><span>" + s.Description + "</span></td>";
                                 ltrSmallPackages.Text += "<td>" + PJUtils.IntToStringStatusSmallPackageWithBGNew(Convert.ToInt32(s.Status)) + "</td>";
                                 ltrSmallPackages.Text += "</tr>";
@@ -796,7 +796,7 @@ namespace NHST
                         }
                         else
                         {
-                            ltrService.Text += "<li><span class=\"lbl\">Phí cân nặng</span><span class=\"value\">" + o.TQVNWeight + " kg - " + string.Format("{0:N0}", o.FeeWeight.ToFloat(0)) + " VNĐ</span></li>";
+                            ltrService.Text += "<li><span class=\"lbl\">Phí cân nặng</span><span class=\"value\">" + Math.Round(Convert.ToDouble(o.TQVNWeight), 1) + " kg - " + string.Format("{0:N0}", o.FeeWeight.ToFloat(0)) + " VNĐ</span></li>";
                         }
                         double phuphi = 0;
                         var listsp1 = FeeSupportController.GetAllByMainOrderID(o.ID);

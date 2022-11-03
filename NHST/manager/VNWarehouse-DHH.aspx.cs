@@ -241,7 +241,7 @@ namespace NHST.manager
                                     si.rong = rong;
                                     si.cao = cao;
 
-                               
+
 
                                     if (!string.IsNullOrEmpty(item.UserNote))
                                         si.Khachghichu = item.UserNote;
@@ -270,226 +270,236 @@ namespace NHST.manager
                             bi.BigpackageType = 2;
                             List<smallpackageitem> sis = new List<smallpackageitem>();
                             var smallpackages = SmallPackageController.GetListByOrderTransactionCode(barcode);
+
                             if (smallpackages.Count > 0)
                             {
                                 foreach (var item in smallpackages)
                                 {
-                                    SmallPackageController.UpdateStatusAndIsLostAndDateInKhoDich(item.ID, 3, false, currentDate, currentDate, username);
-                                    SmallPackageController.UpdateDateInVNWareHouse(item.ID, username, currentDate);
-                                    int bID = Convert.ToInt32(item.BigPackageID);
-                                    if (bID > 0)
+                                    //Kiểm tra smallpackage có phải của đơn ký gửi hay không
+                                    var trans = TransportationOrderNewController.GetByBarCode_Thang(item.OrderTransactionCode);
+                                    if (trans != null)
+                                        continue;
+                                    else
                                     {
-                                        var big = BigPackageController.GetByID(bID);
-                                        if (big != null)
+                                        SmallPackageController.UpdateStatusAndIsLostAndDateInKhoDich(item.ID, 3, false, currentDate, currentDate, username);
+                                        SmallPackageController.UpdateDateInVNWareHouse(item.ID, username, currentDate);
+                                        int bID = Convert.ToInt32(item.BigPackageID);
+                                        if (bID > 0)
                                         {
-                                            bool checkIschua = false;
-                                            var smalls = SmallPackageController.GetBuyBigPackageID(bID, "");
-                                            if (smalls.Count > 0)
+                                            var big = BigPackageController.GetByID(bID);
+                                            if (big != null)
                                             {
-                                                foreach (var s in smalls)
+                                                bool checkIschua = false;
+                                                var smalls = SmallPackageController.GetBuyBigPackageID(bID, "");
+                                                if (smalls.Count > 0)
                                                 {
-                                                    if (s.Status < 3)
-                                                        checkIschua = true;
-                                                }
-                                                if (checkIschua == false)
-                                                {
-                                                    BigPackageController.UpdateStatus(bID, 2, currentDate, username);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    smallpackageitem si = new smallpackageitem();
-                                    int mID = Convert.ToInt32(item.MainOrderID);
-                                    int tID = Convert.ToInt32(item.TransportationOrderID);
-                                    si.ID = item.ID;
-                                    si.IMG = item.ListIMG;
-                                    si.Note = item.Description;
-                                    if (mID > 0)
-                                    {
-                                        si.OrderType = "Đơn hàng mua hộ";
-                                        si.MainorderID = mID;
-                                        si.TransportationID = 0;
-                                        si.OrderTypeInt = 1;
-                                        var mainorder = MainOrderController.GetAllByID(mID);
-                                        if (mainorder != null)
-                                        {
-                                            int UID = Convert.ToInt32(mainorder.UID);
-                                            si.UID = UID;
-                                            var acc = AccountController.GetByID(UID);
-                                            if (acc != null)
-                                            {
-                                                si.Username = acc.Username;
-                                                si.Wallet = Convert.ToDouble(acc.Wallet);
-                                                si.OrderShopCode = mainorder.MainOrderCode;
-                                                if (mainorder.IsCheckProduct == true)
-                                                    si.Kiemdem = "Có";
-                                                else
-                                                    si.Kiemdem = "Không";
-
-                                                if (mainorder.IsPacked == true)
-                                                    si.Donggo = "Có";
-                                                else
-                                                    si.Donggo = "Không";
-                                                si.Baohiem = "Không";
-
-                                                if (!string.IsNullOrEmpty(item.UserNote))
-                                                    si.Khachghichu = item.UserNote;
-                                                else
-                                                    si.Khachghichu = string.Empty;
-
-                                                if (!string.IsNullOrEmpty(item.Description))
-                                                    si.Description = item.Description;
-                                                else
-                                                    si.Description = string.Empty;
-
-                                                si.Loaisanpham = item.ProductType;
-
-                                                if (!string.IsNullOrEmpty(item.StaffNoteCheck))
-                                                    si.NVKiemdem = item.StaffNoteCheck;
-                                                else
-                                                    si.NVKiemdem = string.Empty;
-
-                                                var orders = OrderController.GetByMainOrderID(mID);
-                                                si.Soloaisanpham = orders.Count.ToString();
-                                                double totalProductQuantity = 0;
-                                                if (orders.Count > 0)
-                                                {
-                                                    foreach (var p in orders)
+                                                    foreach (var s in smalls)
                                                     {
-                                                        totalProductQuantity += Convert.ToDouble(p.quantity);
+                                                        if (s.Status < 3)
+                                                            checkIschua = true;
+                                                    }
+                                                    if (checkIschua == false)
+                                                    {
+                                                        BigPackageController.UpdateStatus(bID, 2, currentDate, username);
                                                     }
                                                 }
-                                                si.Soluongsanpham = totalProductQuantity.ToString();
-                                                string Phone = "";
-                                                var ai = AccountInfoController.GetByUserID(acc.ID);
-                                                if (ai != null)
-                                                {
-                                                    si.Fullname = ai.FirstName + " " + ai.LastName;
-                                                    si.Email = acc.Email;
-                                                    Phone = ai.Phone;
-                                                    si.Address = ai.Address;
-                                                }
-                                                si.Phone = Phone;
                                             }
                                         }
-                                    }
-                                    else if (tID > 0)
-                                    {
-                                        si.OrderType = "Đơn hàng VC hộ";
-                                        si.MainorderID = 0;
-                                        si.TransportationID = tID;
-                                        si.OrderTypeInt = 2;
-                                        int UID = 0;
-                                        string Phone = "";
-                                        string Username = "";
-                                        var orderTransportation = TransportationOrderController.GetByID(Convert.ToInt32(item.TransportationOrderID));
-                                        if (orderTransportation != null)
+
+                                        smallpackageitem si = new smallpackageitem();
+                                        int mID = Convert.ToInt32(item.MainOrderID);
+                                        int tID = Convert.ToInt32(item.TransportationOrderID);
+                                        si.ID = item.ID;
+                                        si.IMG = item.ListIMG;
+                                        si.Note = item.Description;
+                                        if (mID > 0)
                                         {
-                                            var userorder = AccountController.GetByID(orderTransportation.UID.Value);
-                                            if (userorder != null)
+                                            si.OrderType = "Đơn hàng mua hộ";
+                                            si.MainorderID = mID;
+                                            si.TransportationID = 0;
+                                            si.OrderTypeInt = 1;
+                                            var mainorder = MainOrderController.GetAllByID(mID);
+                                            if (mainorder != null)
                                             {
-                                                UID = userorder.ID;
-                                                Phone = AccountInfoController.GetByUserID(userorder.ID).Phone;
-                                                Username = userorder.Username;
+                                                int UID = Convert.ToInt32(mainorder.UID);
+                                                si.UID = UID;
+                                                var acc = AccountController.GetByID(UID);
+                                                if (acc != null)
+                                                {
+                                                    si.Username = acc.Username;
+                                                    si.Wallet = Convert.ToDouble(acc.Wallet);
+                                                    si.OrderShopCode = mainorder.MainOrderCode;
+                                                    if (mainorder.IsCheckProduct == true)
+                                                        si.Kiemdem = "Có";
+                                                    else
+                                                        si.Kiemdem = "Không";
+
+                                                    if (mainorder.IsPacked == true)
+                                                        si.Donggo = "Có";
+                                                    else
+                                                        si.Donggo = "Không";
+                                                    si.Baohiem = "Không";
+
+                                                    if (!string.IsNullOrEmpty(item.UserNote))
+                                                        si.Khachghichu = item.UserNote;
+                                                    else
+                                                        si.Khachghichu = string.Empty;
+
+                                                    if (!string.IsNullOrEmpty(item.Description))
+                                                        si.Description = item.Description;
+                                                    else
+                                                        si.Description = string.Empty;
+
+                                                    si.Loaisanpham = item.ProductType;
+
+                                                    if (!string.IsNullOrEmpty(item.StaffNoteCheck))
+                                                        si.NVKiemdem = item.StaffNoteCheck;
+                                                    else
+                                                        si.NVKiemdem = string.Empty;
+
+                                                    var orders = OrderController.GetByMainOrderID(mID);
+                                                    si.Soloaisanpham = orders.Count.ToString();
+                                                    double totalProductQuantity = 0;
+                                                    if (orders.Count > 0)
+                                                    {
+                                                        foreach (var p in orders)
+                                                        {
+                                                            totalProductQuantity += Convert.ToDouble(p.quantity);
+                                                        }
+                                                    }
+                                                    si.Soluongsanpham = totalProductQuantity.ToString();
+                                                    string Phone = "";
+                                                    var ai = AccountInfoController.GetByUserID(acc.ID);
+                                                    if (ai != null)
+                                                    {
+                                                        si.Fullname = ai.FirstName + " " + ai.LastName;
+                                                        si.Email = acc.Email;
+                                                        Phone = ai.Phone;
+                                                        si.Address = ai.Address;
+                                                    }
+                                                    si.Phone = Phone;
+                                                }
                                             }
                                         }
-                                        si.UID = UID;
-                                        si.Phone = Phone;
-                                        si.Username = Username;
-                                        si.Soluongsanpham = item.ProductQuantity;
-                                        string kiemdem = "Không";
-                                        string donggo = "Không";
-                                        string baohiem = "Không";
-                                        if (item.IsCheckProduct == true)
-                                            kiemdem = "Có";
-                                        if (item.IsPackaged == true)
-                                            donggo = "Có";
-                                        if (item.IsInsurrance == true)
-                                            baohiem = "Có";
-                                        si.Kiemdem = kiemdem;
-                                        si.Donggo = donggo;
-                                        si.Baohiem = baohiem;
-                                    }
-                                    else
-                                    {
-                                        si.OrderType = "Kiện chưa xác định";
-                                        si.MainorderID = 0;
-                                        si.TransportationID = 0;
-                                        si.OrderTypeInt = 3;
-                                        si.Username = "NA";
-                                        si.Phone = "NA";
-                                        si.Soluongsanpham = "0";
-                                        string kiemdem = "Không";
-                                        string donggo = "Không";
-                                        string baohiem = "Không";
-                                        if (item.IsCheckProduct == true)
-                                            kiemdem = "Có";
-                                        if (item.IsPackaged == true)
-                                            donggo = "Có";
-                                        if (item.IsInsurrance == true)
-                                            baohiem = "Có";
-                                        si.Kiemdem = kiemdem;
-                                        si.Donggo = donggo;
-                                        si.Baohiem = baohiem;
-                                    }
-                                    si.Weight = Convert.ToDouble(item.Weight);
-                                    si.BarCode = item.OrderTransactionCode;
-                                    si.Status = 3;
-                                    si.Description = item.Description;
-                                    si.BigPackageID = 0;
-                                    si.IsTemp = Convert.ToBoolean(item.IsTemp);
-                                    if (item.IsLost != null)
-                                        si.IsThatlac = Convert.ToBoolean(item.IsLost);
-                                    else
-                                        si.IsThatlac = false;
-                                    if (item.IsHelpMoving != null)
-                                        si.IsVCH = Convert.ToBoolean(item.IsHelpMoving);
-                                    else
-                                        si.IsVCH = false;
-                                    double dai = 0;
-                                    double rong = 0;
-                                    double cao = 0;
-                                    if (item.Length.ToString().ToFloat(0) > 0)
-                                    {
-                                        dai = Convert.ToDouble(item.Length);
-                                    }
-                                    if (item.Width.ToString().ToFloat(0) > 0)
-                                    {
-                                        rong = Convert.ToDouble(item.Width);
-                                    }
-                                    if (item.Height.ToString().ToFloat(0) > 0)
-                                    {
-                                        cao = Convert.ToDouble(item.Height);
-                                    }
-                                    si.dai = dai;
-                                    si.rong = rong;
-                                    si.cao = cao;
-
-                                  
-
-                                    if (!string.IsNullOrEmpty(item.Description))
+                                        else if (tID > 0)
+                                        {
+                                            si.OrderType = "Đơn hàng VC hộ";
+                                            si.MainorderID = 0;
+                                            si.TransportationID = tID;
+                                            si.OrderTypeInt = 2;
+                                            int UID = 0;
+                                            string Phone = "";
+                                            string Username = "";
+                                            var orderTransportation = TransportationOrderController.GetByID(Convert.ToInt32(item.TransportationOrderID));
+                                            if (orderTransportation != null)
+                                            {
+                                                var userorder = AccountController.GetByID(orderTransportation.UID.Value);
+                                                if (userorder != null)
+                                                {
+                                                    UID = userorder.ID;
+                                                    Phone = AccountInfoController.GetByUserID(userorder.ID).Phone;
+                                                    Username = userorder.Username;
+                                                }
+                                            }
+                                            si.UID = UID;
+                                            si.Phone = Phone;
+                                            si.Username = Username;
+                                            si.Soluongsanpham = item.ProductQuantity;
+                                            string kiemdem = "Không";
+                                            string donggo = "Không";
+                                            string baohiem = "Không";
+                                            if (item.IsCheckProduct == true)
+                                                kiemdem = "Có";
+                                            if (item.IsPackaged == true)
+                                                donggo = "Có";
+                                            if (item.IsInsurrance == true)
+                                                baohiem = "Có";
+                                            si.Kiemdem = kiemdem;
+                                            si.Donggo = donggo;
+                                            si.Baohiem = baohiem;
+                                        }
+                                        else
+                                        {
+                                            si.OrderType = "Kiện chưa xác định";
+                                            si.MainorderID = 0;
+                                            si.TransportationID = 0;
+                                            si.OrderTypeInt = 3;
+                                            si.Username = "NA";
+                                            si.Phone = "NA";
+                                            si.Soluongsanpham = "0";
+                                            string kiemdem = "Không";
+                                            string donggo = "Không";
+                                            string baohiem = "Không";
+                                            if (item.IsCheckProduct == true)
+                                                kiemdem = "Có";
+                                            if (item.IsPackaged == true)
+                                                donggo = "Có";
+                                            if (item.IsInsurrance == true)
+                                                baohiem = "Có";
+                                            si.Kiemdem = kiemdem;
+                                            si.Donggo = donggo;
+                                            si.Baohiem = baohiem;
+                                        }
+                                        si.Weight = Convert.ToDouble(item.Weight);
+                                        si.BarCode = item.OrderTransactionCode;
+                                        si.Status = 3;
                                         si.Description = item.Description;
-                                    else
-                                        si.Description = string.Empty;
+                                        si.BigPackageID = 0;
+                                        si.IsTemp = Convert.ToBoolean(item.IsTemp);
+                                        if (item.IsLost != null)
+                                            si.IsThatlac = Convert.ToBoolean(item.IsLost);
+                                        else
+                                            si.IsThatlac = false;
+                                        if (item.IsHelpMoving != null)
+                                            si.IsVCH = Convert.ToBoolean(item.IsHelpMoving);
+                                        else
+                                            si.IsVCH = false;
+                                        double dai = 0;
+                                        double rong = 0;
+                                        double cao = 0;
+                                        if (item.Length.ToString().ToFloat(0) > 0)
+                                        {
+                                            dai = Convert.ToDouble(item.Length);
+                                        }
+                                        if (item.Width.ToString().ToFloat(0) > 0)
+                                        {
+                                            rong = Convert.ToDouble(item.Width);
+                                        }
+                                        if (item.Height.ToString().ToFloat(0) > 0)
+                                        {
+                                            cao = Convert.ToDouble(item.Height);
+                                        }
+                                        si.dai = dai;
+                                        si.rong = rong;
+                                        si.cao = cao;
 
-                                    if (!string.IsNullOrEmpty(item.UserNote))
-                                        si.Khachghichu = item.UserNote;
-                                    else
-                                        si.Khachghichu = string.Empty;
 
-                                    si.Loaisanpham = item.ProductType;
-                                    if (!string.IsNullOrEmpty(item.StaffNoteCheck))
-                                        si.NVKiemdem = item.StaffNoteCheck;
-                                    else
-                                        si.NVKiemdem = string.Empty;
-                                    sis.Add(si);
+
+                                        if (!string.IsNullOrEmpty(item.Description))
+                                            si.Description = item.Description;
+                                        else
+                                            si.Description = string.Empty;
+
+                                        if (!string.IsNullOrEmpty(item.UserNote))
+                                            si.Khachghichu = item.UserNote;
+                                        else
+                                            si.Khachghichu = string.Empty;
+
+                                        si.Loaisanpham = item.ProductType;
+                                        if (!string.IsNullOrEmpty(item.StaffNoteCheck))
+                                            si.NVKiemdem = item.StaffNoteCheck;
+                                        else
+                                            si.NVKiemdem = string.Empty;
+                                        sis.Add(si);
+                                    }
+                                    if (sis.Count > 0)
+                                    {
+                                        bi.BigpackageSmallPackageCount = smallpackages.Count;
+                                        bi.Smallpackages = sis;
+                                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                        return serializer.Serialize(bi);
+                                    }
                                 }
-
-                                bi.BigpackageSmallPackageCount = smallpackages.Count;
-                                bi.Smallpackages = sis;
-                                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                                return serializer.Serialize(bi);
                             }
 
                         }
@@ -841,7 +851,7 @@ namespace NHST.manager
 
                             if (checkIsChinaCome == true)
                             {
-                                int MainorderID = mainorder.ID;                                
+                                int MainorderID = mainorder.ID;
                                 var smallpackages = SmallPackageController.GetByMainOrderID(MainorderID);
                                 if (smallpackages.Count > 0)
                                 {
@@ -1175,7 +1185,7 @@ namespace NHST.manager
             }
             else return "null";
         }
-        
+
         [WebMethod]
         public static string CheckOrderShopCodeNew(string ordershopcode, string ordertransaction, string Description, string OrderID, string Username, string UserPhone)
         {
@@ -1201,9 +1211,110 @@ namespace NHST.manager
                                 {
                                     //if (OrderType == 1)
                                     //{
-                                        if (!string.IsNullOrEmpty(OrderID))
+                                    if (!string.IsNullOrEmpty(OrderID))
+                                    {
+                                        var order = MainOrderController.GetAllByID(Convert.ToInt32(OrderID));
+                                        if (order != null)
                                         {
-                                            var order = MainOrderController.GetAllByID(Convert.ToInt32(OrderID));
+                                            int MainOrderID = order.ID;
+                                            string temp = "";
+                                            if (!string.IsNullOrEmpty(ordertransaction))
+                                                temp = ordertransaction;
+                                            else
+                                                temp = ordershopcode + "-" + PJUtils.GetRandomStringByDateTime();
+                                            var getsmallcheck = SmallPackageController.GetByOrderCode(temp);
+                                            if (getsmallcheck.Count > 0)
+                                            {
+                                                return "existsmallpackage";
+                                            }
+                                            else
+                                            {
+                                                string packageID = SmallPackageController.InsertWithMainOrderIDUIDUsernameNew(order.ID, order.UID.Value, AccountController.GetByID(order.UID.Value).Username,
+                                           0, temp, "", 0, 0, 0, 3, Description, DateTime.Now, username, ordershopcode.ToInt(0), 0);
+
+                                                //    string packageID = SmallPackageController.InsertWithMainOrderIDAndIsTemp(MainOrderID,
+                                                //0, temp, "", 0, 0, 0, 2, true, 0, DateTime.Now, username);
+                                                SmallPackageController.UpdateUserPhoneAndUsername(Convert.ToInt32(packageID), Username, UserPhone);
+                                                SmallPackageController.UpdateNote(Convert.ToInt32(packageID), Description);
+
+                                                #region Lấy tất cả các cục hiện có trong đơn
+
+                                                var smallpackages = SmallPackageController.GetByMainOrderID(MainOrderID);
+                                                PackageAll pa = new PackageAll();
+                                                pa.PackageAllType = 0;
+                                                pa.PackageGetCount = smallpackages.Count;
+                                                List<smallpackageitem> og = new List<smallpackageitem>();
+
+                                                smallpackageitem o = new smallpackageitem();
+                                                o.ID = packageID.ToInt(0);
+                                                o.OrderType = "Đơn hàng mua hộ";
+                                                o.BigPackageID = 0;
+                                                o.BarCode = temp;
+
+                                                o.Status = 1;
+                                                int mainOrderID = Convert.ToInt32(MainOrderID);
+                                                o.MainorderID = mainOrderID;
+                                                o.OrderShopCode = order.MainOrderCode;
+                                                var orders = OrderController.GetByMainOrderID(MainOrderID);
+                                                o.Soloaisanpham = orders.Count.ToString();
+                                                double totalProductQuantity = 0;
+                                                if (orders.Count > 0)
+                                                {
+                                                    foreach (var p in orders)
+                                                    {
+                                                        totalProductQuantity += Convert.ToDouble(p.quantity);
+                                                    }
+                                                }
+                                                o.Soluongsanpham = totalProductQuantity.ToString();
+                                                if (order.IsCheckProduct == true)
+                                                    o.Kiemdem = "Có";
+                                                else
+                                                    o.Kiemdem = "Không";
+                                                if (order.IsPacked == true)
+                                                    o.Donggo = "Có";
+                                                else
+                                                    o.Donggo = "Không";
+
+                                                double dai = 0;
+                                                double rong = 0;
+                                                double cao = 0;
+
+                                                o.dai = dai;
+                                                o.rong = rong;
+                                                o.cao = cao;
+                                                og.Add(o);
+                                                #endregion
+                                                pa.listPackageGet = og;
+
+                                                if (smallpackages.Count > 0)
+                                                {
+                                                    bool isChuaVekhoTQ = true;
+                                                    var sp_main = smallpackages.Where(s => s.IsTemp != true).ToList();
+                                                    var sp_support_isvekhotq = smallpackages.Where(s => s.IsTemp == true && s.Status > 1).ToList();
+                                                    var sp_main_isvekhotq = smallpackages.Where(s => s.IsTemp != true && s.Status > 1).ToList();
+                                                    double che = sp_support_isvekhotq.Count + sp_main_isvekhotq.Count;
+                                                    if (che >= sp_main.Count)
+                                                    {
+                                                        isChuaVekhoTQ = false;
+                                                    }
+                                                    if (isChuaVekhoTQ == false)
+                                                    {
+                                                        MainOrderController.UpdateStatus(mainOrderID, Convert.ToInt32(order.UID), 6);
+                                                    }
+                                                }
+                                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                                return serializer.Serialize(pa);
+                                            }
+                                        }
+                                        else
+                                            return "noteexistordercode";
+                                    }
+                                    else if (!string.IsNullOrEmpty(ordershopcode))
+                                    {
+                                        var moCode = MainOrderCodeController.GetByID(Convert.ToInt32(ordershopcode));
+                                        if (moCode != null)
+                                        {
+                                            var order = MainOrderController.GetAllByID(moCode.MainOrderID.Value);
                                             if (order != null)
                                             {
                                                 int MainOrderID = order.ID;
@@ -1211,7 +1322,7 @@ namespace NHST.manager
                                                 if (!string.IsNullOrEmpty(ordertransaction))
                                                     temp = ordertransaction;
                                                 else
-                                                    temp = ordershopcode + "-" + PJUtils.GetRandomStringByDateTime();
+                                                    temp = moCode.MainOrderCode + "-" + PJUtils.GetRandomStringByDateTime();
                                                 var getsmallcheck = SmallPackageController.GetByOrderCode(temp);
                                                 if (getsmallcheck.Count > 0)
                                                 {
@@ -1220,13 +1331,9 @@ namespace NHST.manager
                                                 else
                                                 {
                                                     string packageID = SmallPackageController.InsertWithMainOrderIDUIDUsernameNew(order.ID, order.UID.Value, AccountController.GetByID(order.UID.Value).Username,
-                                               0, temp, "", 0, 0, 0, 3, Description, DateTime.Now, username, ordershopcode.ToInt(0),0);
-
-                                                    //    string packageID = SmallPackageController.InsertWithMainOrderIDAndIsTemp(MainOrderID,
-                                                    //0, temp, "", 0, 0, 0, 2, true, 0, DateTime.Now, username);
-                                                    SmallPackageController.UpdateUserPhoneAndUsername(Convert.ToInt32(packageID), Username, UserPhone);
+                                           0, temp, "", 0, 0, 0, 3, Description, DateTime.Now, username, ordershopcode.ToInt(0), 0);
                                                     SmallPackageController.UpdateNote(Convert.ToInt32(packageID), Description);
-
+                                                    SmallPackageController.UpdateUserPhoneAndUsername(Convert.ToInt32(packageID), Username, UserPhone);
                                                     #region Lấy tất cả các cục hiện có trong đơn
 
                                                     var smallpackages = SmallPackageController.GetByMainOrderID(MainOrderID);
@@ -1299,164 +1406,67 @@ namespace NHST.manager
                                             else
                                                 return "noteexistordercode";
                                         }
-                                        else if (!string.IsNullOrEmpty(ordershopcode))
+                                        else
+                                            return "noteexistordercode";
+                                    }
+                                    else
+                                    {
+                                        int MainOrderID = 0;
+                                        string temp = "";
+                                        if (!string.IsNullOrEmpty(ordertransaction))
+                                            temp = ordertransaction;
+                                        else
+                                            temp = "00-" + PJUtils.GetRandomStringByDateTime();
+                                        #region Lấy tất cả các cục hiện có trong đơn
+                                        var getsmallcheck = SmallPackageController.GetByOrderCode(temp);
+                                        if (getsmallcheck.Count > 0)
                                         {
-                                            var moCode = MainOrderCodeController.GetByID(Convert.ToInt32(ordershopcode));
-                                            if (moCode != null)
-                                            {
-                                                var order = MainOrderController.GetAllByID(moCode.MainOrderID.Value);
-                                                if (order != null)
-                                                {
-                                                    int MainOrderID = order.ID;
-                                                    string temp = "";
-                                                    if (!string.IsNullOrEmpty(ordertransaction))
-                                                        temp = ordertransaction;
-                                                    else
-                                                        temp = moCode.MainOrderCode + "-" + PJUtils.GetRandomStringByDateTime();
-                                                    var getsmallcheck = SmallPackageController.GetByOrderCode(temp);
-                                                    if (getsmallcheck.Count > 0)
-                                                    {
-                                                        return "existsmallpackage";
-                                                    }
-                                                    else
-                                                    {
-                                                        string packageID = SmallPackageController.InsertWithMainOrderIDUIDUsernameNew(order.ID, order.UID.Value, AccountController.GetByID(order.UID.Value).Username,
-                                               0, temp, "", 0, 0, 0, 3, Description, DateTime.Now, username, ordershopcode.ToInt(0),0);
-                                                        SmallPackageController.UpdateNote(Convert.ToInt32(packageID), Description);
-                                                        SmallPackageController.UpdateUserPhoneAndUsername(Convert.ToInt32(packageID), Username, UserPhone);
-                                                        #region Lấy tất cả các cục hiện có trong đơn
-
-                                                        var smallpackages = SmallPackageController.GetByMainOrderID(MainOrderID);
-                                                        PackageAll pa = new PackageAll();
-                                                        pa.PackageAllType = 0;
-                                                        pa.PackageGetCount = smallpackages.Count;
-                                                        List<smallpackageitem> og = new List<smallpackageitem>();
-
-                                                        smallpackageitem o = new smallpackageitem();
-                                                        o.ID = packageID.ToInt(0);
-                                                        o.OrderType = "Đơn hàng mua hộ";
-                                                        o.BigPackageID = 0;
-                                                        o.BarCode = temp;
-
-                                                        o.Status = 1;
-                                                        int mainOrderID = Convert.ToInt32(MainOrderID);
-                                                        o.MainorderID = mainOrderID;
-                                                        o.OrderShopCode = order.MainOrderCode;
-                                                        var orders = OrderController.GetByMainOrderID(MainOrderID);
-                                                        o.Soloaisanpham = orders.Count.ToString();
-                                                        double totalProductQuantity = 0;
-                                                        if (orders.Count > 0)
-                                                        {
-                                                            foreach (var p in orders)
-                                                            {
-                                                                totalProductQuantity += Convert.ToDouble(p.quantity);
-                                                            }
-                                                        }
-                                                        o.Soluongsanpham = totalProductQuantity.ToString();
-                                                        if (order.IsCheckProduct == true)
-                                                            o.Kiemdem = "Có";
-                                                        else
-                                                            o.Kiemdem = "Không";
-                                                        if (order.IsPacked == true)
-                                                            o.Donggo = "Có";
-                                                        else
-                                                            o.Donggo = "Không";
-
-                                                        double dai = 0;
-                                                        double rong = 0;
-                                                        double cao = 0;
-
-                                                        o.dai = dai;
-                                                        o.rong = rong;
-                                                        o.cao = cao;
-                                                        og.Add(o);
-                                                        #endregion
-                                                        pa.listPackageGet = og;
-
-                                                        if (smallpackages.Count > 0)
-                                                        {
-                                                            bool isChuaVekhoTQ = true;
-                                                            var sp_main = smallpackages.Where(s => s.IsTemp != true).ToList();
-                                                            var sp_support_isvekhotq = smallpackages.Where(s => s.IsTemp == true && s.Status > 1).ToList();
-                                                            var sp_main_isvekhotq = smallpackages.Where(s => s.IsTemp != true && s.Status > 1).ToList();
-                                                            double che = sp_support_isvekhotq.Count + sp_main_isvekhotq.Count;
-                                                            if (che >= sp_main.Count)
-                                                            {
-                                                                isChuaVekhoTQ = false;
-                                                            }
-                                                            if (isChuaVekhoTQ == false)
-                                                            {
-                                                                MainOrderController.UpdateStatus(mainOrderID, Convert.ToInt32(order.UID), 6);
-                                                            }
-                                                        }
-                                                        JavaScriptSerializer serializer = new JavaScriptSerializer();
-                                                        return serializer.Serialize(pa);
-                                                    }
-                                                }
-                                                else
-                                                    return "noteexistordercode";
-                                            }
-                                            else
-                                                return "noteexistordercode";
+                                            return "existsmallpackage";
                                         }
                                         else
                                         {
-                                            int MainOrderID = 0;
-                                            string temp = "";
-                                            if (!string.IsNullOrEmpty(ordertransaction))
-                                                temp = ordertransaction;
-                                            else
-                                                temp = "00-" + PJUtils.GetRandomStringByDateTime();
-                                            #region Lấy tất cả các cục hiện có trong đơn
-                                            var getsmallcheck = SmallPackageController.GetByOrderCode(temp);
-                                            if (getsmallcheck.Count > 0)
-                                            {
-                                                return "existsmallpackage";
-                                            }
-                                            else
-                                            {
-                                                string packageID = SmallPackageController.InsertWithMainOrderIDAndIsTemp(MainOrderID,
-                                                0, temp, "", 0, 0, 0, 3, true, 0, DateTime.Now, username);
-                                                SmallPackageController.UpdateNote(Convert.ToInt32(packageID), Description);
-                                                SmallPackageController.UpdateUserPhoneAndUsername(Convert.ToInt32(packageID), Username, UserPhone);
-                                                PackageAll pa = new PackageAll();
-                                                pa.PackageAllType = 0;
-                                                pa.PackageGetCount = 0;
-                                                List<smallpackageitem> og = new List<smallpackageitem>();
-                                                //string temp = "temp-" + PJUtils.GetRandomStringByDateTime();
-                                                smallpackageitem o = new smallpackageitem();
-                                                o.ID = packageID.ToInt(0);
-                                                o.OrderType = "Chưa xác định";
-                                                o.BigPackageID = 0;
-                                                o.BarCode = temp;
+                                            string packageID = SmallPackageController.InsertWithMainOrderIDAndIsTemp(MainOrderID,
+                                            0, temp, "", 0, 0, 0, 3, true, 0, DateTime.Now, username);
+                                            SmallPackageController.UpdateNote(Convert.ToInt32(packageID), Description);
+                                            SmallPackageController.UpdateUserPhoneAndUsername(Convert.ToInt32(packageID), Username, UserPhone);
+                                            PackageAll pa = new PackageAll();
+                                            pa.PackageAllType = 0;
+                                            pa.PackageGetCount = 0;
+                                            List<smallpackageitem> og = new List<smallpackageitem>();
+                                            //string temp = "temp-" + PJUtils.GetRandomStringByDateTime();
+                                            smallpackageitem o = new smallpackageitem();
+                                            o.ID = packageID.ToInt(0);
+                                            o.OrderType = "Chưa xác định";
+                                            o.BigPackageID = 0;
+                                            o.BarCode = temp;
 
-                                                o.Status = 1;
-                                                int mainOrderID = Convert.ToInt32(MainOrderID);
-                                                o.MainorderID = mainOrderID;
-                                                o.TransportationID = 0;
-                                                o.OrderShopCode = "";
+                                            o.Status = 1;
+                                            int mainOrderID = Convert.ToInt32(MainOrderID);
+                                            o.MainorderID = mainOrderID;
+                                            o.TransportationID = 0;
+                                            o.OrderShopCode = "";
 
-                                                o.Soloaisanpham = "0";
-                                                o.Soluongsanpham = "0";
-                                                o.Kiemdem = "Không";
-                                                o.Donggo = "Không";
+                                            o.Soloaisanpham = "0";
+                                            o.Soluongsanpham = "0";
+                                            o.Kiemdem = "Không";
+                                            o.Donggo = "Không";
 
-                                                double dai = 0;
-                                                double rong = 0;
-                                                double cao = 0;
+                                            double dai = 0;
+                                            double rong = 0;
+                                            double cao = 0;
 
-                                                o.dai = dai;
-                                                o.rong = rong;
-                                                o.cao = cao;
-                                                og.Add(o);
+                                            o.dai = dai;
+                                            o.rong = rong;
+                                            o.cao = cao;
+                                            og.Add(o);
 
-                                                pa.listPackageGet = og;
-                                                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                                                return serializer.Serialize(pa);
+                                            pa.listPackageGet = og;
+                                            JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                            return serializer.Serialize(pa);
 
-                                            }
-                                            #endregion
                                         }
+                                        #endregion
+                                    }
                                     //}
                                     //else
                                     //{
@@ -1778,11 +1788,11 @@ namespace NHST.manager
                                             else
                                             {
                                                 string packageID = SmallPackageController.InsertWithMainOrderIDUIDUsernameNew(order.ID, order.UID.Value, AccountController.GetByID(order.UID.Value).Username,
-                                               0, temp, "", 0, 0, 0, 3, "", DateTime.Now, username, Convert.ToInt32(checksmall.MainOrderCodeID),0);
+                                               0, temp, "", 0, 0, 0, 3, "", DateTime.Now, username, Convert.ToInt32(checksmall.MainOrderCodeID), 0);
 
                                                 //    string packageID = SmallPackageController.InsertWithMainOrderIDAndIsTemp(MainOrderID,
                                                 //0, temp, "", 0, 0, 0, 2, true, 0, DateTime.Now, username);
-                             
+
 
                                                 #region Lấy tất cả các cục hiện có trong đơn
 

@@ -272,7 +272,7 @@ namespace NHST.manager
         //                TotalFeeSupport = Convert.ToDouble(o.TotalFeeSupport);
         //                if (ischeckmvd)
         //                {
-                           
+
 
         //                    #region Lấy ra text của trạng thái đơn hàng
         //                    string orderstatus = "";
@@ -435,7 +435,7 @@ namespace NHST.manager
         //                        if (Convert.ToDouble(o.IsCheckProductPrice) > 0)
         //                            IsCheckProductPrice = Math.Round(Convert.ToDouble(o.IsCheckProductPrice), 0);
         //                        double IsCheckProductPriceCYN = 0;
-                               
+
         //                        //if (o.IsCheckProduct == true)
         //                        //    IsCheckProductPrice = Convert.ToDouble(pCheck.Value);
         //                        //else
@@ -444,7 +444,7 @@ namespace NHST.manager
         //                        double IsPackedPrice = 0;
         //                        if (Convert.ToDouble(o.IsPackedPrice) > 0)
         //                            IsPackedPrice = Math.Round(Convert.ToDouble(o.IsPackedPrice), 0);
-                              
+
         //                        //if (o.IsPacked == true)
         //                        //    IsPackedPrice = Convert.ToDouble(pPacked.Value);
         //                        //else
@@ -471,16 +471,16 @@ namespace NHST.manager
         //                        if (o.PriceVND.ToFloat(0) > 0)
         //                            pricenvd = Math.Round(Convert.ToDouble(o.PriceVND), 0);
 
-                               
+
         //                        double TotalPriceVND = FeeShipCN + FeeBuyPro + FeeWeight + IsCheckProductPrice + IsPackedPrice
         //                                             + IsFastDeliveryPrice + isfastprice + pricenvd + TotalFeeSupport + IsInsurancePrice;
 
         //                        TotalPriceVND = TotalPriceVND - PhuPhiKhac;
         //                        TotalPriceVND = Math.Round(TotalPriceVND, 0);
-                               
+
         //                        MainOrderController.UpdateFee(o.ID, Deposit.ToString(), FeeShipCN.ToString(), FeeBuyPro.ToString(), FeeWeight.ToString(), IsCheckProductPrice.ToString(),
         //                            IsPackedPrice.ToString(), IsFastDeliveryPrice.ToString(), TotalPriceVND.ToString());
-                               
+
 
         //                    }
         //                }
@@ -488,7 +488,7 @@ namespace NHST.manager
         //        }
         //    }
         //}
-       
+
         public void checkOrderStaff()
         {
             string username_current = Session["userLoginSystem"].ToString();
@@ -747,7 +747,7 @@ namespace NHST.manager
                     {
                         hdfID.Value = obj_user.ID.ToString();
                         #region CheckRole
-                        int RoleID = Convert.ToInt32(obj_user.RoleID);                       
+                        int RoleID = Convert.ToInt32(obj_user.RoleID);
 
                         if (RoleID == 7)
                         {
@@ -758,11 +758,11 @@ namespace NHST.manager
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                         
+                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                             ddlStatus.Enabled = true;
-                            pCNShipFeeNDT.Visible = false;                            
+                            pCNShipFeeNDT.Visible = false;
                             pWeightNDT.Visible = false;
                             pCheckNDT.Visible = false;
                             pPackedNDT.Visible = false;
@@ -775,8 +775,8 @@ namespace NHST.manager
                             pPacked.Enabled = false;
                             pShipHome.Enabled = true;
                             ltr_OrderFee_UserInfo.Visible = false;
-                            ltr_AddressReceive.Visible = false;                           
-                            btnThanhtoan.Visible = true;                            
+                            ltr_AddressReceive.Visible = false;
+                            btnThanhtoan.Visible = true;
                             ddlWarehouseFrom.Enabled = true;
                             ddlReceivePlace.Enabled = true;
                             ddlShippingType.Enabled = true;
@@ -795,13 +795,13 @@ namespace NHST.manager
                                 ddlStatus.Enabled = false;
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                               
+                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                                 ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pCNShipFeeNDT.Visible = false;
                                 pCNShipFee.Enabled = false;
                             }
-                           
+
                             pWeightNDT.Visible = false;
                             pCheckNDT.Visible = false;
                             pPackedNDT.Visible = false;
@@ -817,7 +817,7 @@ namespace NHST.manager
                             ltrBtnUpdate.Text = "<a href=\"javascript:;\" class=\"btn mt-2\" onclick=\"UpdateOrder()\">CẬP NHẬT</a>";
                         }
                         else if (RoleID == 4)
-                        {                          
+                        {
                             if (o.Status < 5)
                             {
                                 ddlStatus.Enabled = false;
@@ -826,9 +826,9 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                                
+                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
-                                ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));                                
+                                ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pPackedNDT.Enabled = false;
                                 pPacked.Enabled = false;
                                 pWeightNDT.Enabled = false;
@@ -840,7 +840,7 @@ namespace NHST.manager
                                 pPackedNDT.Enabled = true;
                                 pPacked.Enabled = true;
                                 pWeightNDT.Enabled = true;
-                                pWeight.Enabled = true;                                
+                                pWeight.Enabled = true;
                                 ddlStatus.Items.Add(new ListItem("Đã mua hàng", "5"));
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
@@ -853,14 +853,14 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                               
+                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
-                                ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));                                
+                                ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pPackedNDT.Enabled = false;
                                 pPacked.Enabled = false;
                                 pWeightNDT.Enabled = false;
                                 pWeight.Enabled = false;
-                            }                                                    
+                            }
 
                             pCNShipFeeNDT.Enabled = false;
                             pCNShipFee.Enabled = false;
@@ -873,10 +873,10 @@ namespace NHST.manager
                             pShipHome.Enabled = false;
                             ltr_OrderFee_UserInfo.Visible = false;
                             ltr_AddressReceive.Visible = false;
-                            txtOrderWeight.Enabled = true;                            
+                            txtOrderWeight.Enabled = true;
                         }
                         else if (RoleID == 5)
-                        {           
+                        {
                             if (o.Status < 5)
                             {
                                 ddlStatus.Enabled = false;
@@ -885,9 +885,9 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                                
+                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
-                                ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));                              
+                                ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pPackedNDT.Enabled = false;
                                 pPacked.Enabled = false;
                                 pWeightNDT.Enabled = false;
@@ -897,15 +897,15 @@ namespace NHST.manager
                             {
                                 ddlStatus.Enabled = true;
                                 ddlStatus.Items.Add(new ListItem("Đã mua hàng", "5"));
-                                ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));                                
+                                ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                              
+                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                                 pPackedNDT.Enabled = false;
                                 pPacked.Enabled = false;
                                 pWeightNDT.Enabled = false;
                                 pWeight.Enabled = false;
-                            }                           
+                            }
 
                             pCNShipFeeNDT.Enabled = false;
                             pCheckNDT.Enabled = false;
@@ -933,10 +933,10 @@ namespace NHST.manager
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                           
+                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
-                           
+
                             txtOrderWeight.Enabled = true;
                             btnThanhtoan.Visible = true;
                             pAmountDeposit.Enabled = true;
@@ -978,13 +978,13 @@ namespace NHST.manager
                         }
                         else if (RoleID == 6)
                         {
-                            ddlStatus.Items.Add(new ListItem("Chờ đặt cọc", "0"));                          
+                            ddlStatus.Items.Add(new ListItem("Chờ đặt cọc", "0"));
                             ddlStatus.Items.Add(new ListItem("Đã đặt cọc", "2"));
                             ddlStatus.Items.Add(new ListItem("Đã mua hàng", "5"));
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));                           
+                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                             ddlStatus.Enabled = false;
@@ -999,11 +999,11 @@ namespace NHST.manager
                             pCheck.Enabled = false;
                             pPackedNDT.Enabled = false;
                             pPacked.Enabled = false;
-                            pShipHome.Enabled = false;                          
+                            pShipHome.Enabled = false;
 
                         }
                         else if (RoleID == 8)
-                        {                           
+                        {
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                             ddlStatus.Enabled = true;
@@ -1018,7 +1018,7 @@ namespace NHST.manager
                             pCheck.Enabled = false;
                             pPackedNDT.Enabled = false;
                             pPacked.Enabled = false;
-                            pShipHome.Enabled = false;                           
+                            pShipHome.Enabled = false;
                             txtOrderWeight.Enabled = false;
                         }
                         int countOc = 1;
@@ -1355,7 +1355,7 @@ namespace NHST.manager
                         lblTotalMoneyVND1.Text = string.Format("{0:N0}", Convert.ToDouble(o.PriceVND));
                         lblTotalMoneyCNY1.Text = string.Format("{0:#.##}", Convert.ToDouble(o.PriceVND) / currency);
                         double totalFee = Convert.ToDouble(o.IsCheckProductPrice) + Convert.ToDouble(o.IsPackedPrice) +
-                           Convert.ToDouble(o.IsFastDeliveryPrice) + Convert.ToDouble(o.IsFastPrice) + InsuranceMoney ;
+                           Convert.ToDouble(o.IsFastDeliveryPrice) + Convert.ToDouble(o.IsFastPrice) + InsuranceMoney;
                         lblAllFee.Text = string.Format("{0:N0}", totalFee);
                         lblFeeTQVN.Text = string.Format("{0:N0}", Convert.ToDouble(o.FeeWeight));
                         double odweight = 0;
@@ -1390,7 +1390,7 @@ namespace NHST.manager
 
 
 
-                       
+
 
                         lblAllTotal.Text = string.Format("{0:N0}", alltotal);
                         lblDeposit.Text = string.Format("{0:N0}", Convert.ToDouble(o.Deposit));
@@ -1895,12 +1895,19 @@ namespace NHST.manager
                                 //spsList.Append("    </div>");
                                 //spsList.Append("    <div class=\"item-element\"><a href=\"javascript:;\" class=\"btn primary-btn\" style=\"margin-top:19px;\" onclick=\"deleteOrderCode($(this))\">Xóa</a></div>");
                                 //spsList.Append("</div>");
-
+                                double? canQuiDoi = ((s.Width ?? 0) * (s.Length ?? 0) * (s.Height ?? 0)) / 7000;
+                                double? canTinhTien = canQuiDoi > s.Weight ? canQuiDoi : s.Weight;
                                 spsList.Append("            <tr class=\"ordercode order-versionnew\" data-packageID=\"" + s.ID + "\">");
                                 spsList.Append("                <td>");
                                 spsList.Append("                    <input class=\"transactionCode\" type=\"text\" value=\"" + s.OrderTransactionCode + "\"></td>");
-                                spsList.Append("                <td>");
+                                spsList.Append("                <td style=\" width: 72px; \">");
                                 spsList.Append("                    <input class=\"transactionWeight\" onkeyup=\"returnWeightFee()\" data-type=\"text\" type=\"text\" value=\"" + s.Weight + "\"></td>");
+                                spsList.Append("                <td style=\" width: 70px; \">");
+                                spsList.Append("                    <input readonly class=\"transactionWeight\" data-type=\"text\" type=\"text\" value=\"" + Math.Round(canQuiDoi ?? 0, 1) + "\"></td>");
+                                spsList.Append("                <td style=\" width: 70px; \">");
+                                spsList.Append("                    <input readonly class=\"transactionWeight\" data-type=\"text\" type=\"text\" value=\"" + Math.Round(canTinhTien ?? 0, 1) + "\"></td>");
+                                spsList.Append("                <td style=\" width: 120px; \">");
+                                spsList.Append("                    <input readonly class=\"transactionWeight\" data-type=\"text\" type=\"text\" value=\"" + (s.Length ?? 0) + " x " + (s.Width ?? 0) + " x " + (s.Height ?? 0) + "\"></td>");
                                 spsList.Append("                <td>");
                                 spsList.Append("                    <div class=\"input-field\">");
                                 spsList.Append("                        <select class=\"transactionCodeMainOrderCode\">");

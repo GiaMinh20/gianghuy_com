@@ -234,7 +234,8 @@
                     </div>
                 </asp:Panel>
                 <div class="list-table card-panel">
-                    <div class="responsive-tb">
+                    <div>
+                        <%--<div class="responsive-tb">--%>
                         <table class="table bordered highlight striped ">
                             <thead>
                                 <tr>
