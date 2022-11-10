@@ -147,9 +147,12 @@ namespace NHST.manager
 
                     hcm.Append("<td style=\"font-weight:bold\">");
                     hcm.Append("<p class=\"s-txt no-wrap\"><span class=\"total\">Ngày tạo:</span><span> " + string.Format("{0:dd/MM/yyyy HH:mm}", Convert.ToDateTime(item.CreatedDate)) + "</span></p>");
+                    
+                    var warehouse = WarehouseController.GetByID(item.WareHouseID ?? 0);
+
                     if (item.DateInVNWareHouse != null)
                     {
-                        hcm.Append("<p class=\"s-txt no-wrap\"><span class=\"total\">Hàng về kho VN:</span><span> " + string.Format("{0:dd/MM/yyyy HH:mm}", Convert.ToDateTime(item.DateInVNWareHouse)) + "</span></p>");
+                        hcm.Append($"<p class=\"s-txt no-wrap\"><span class=\"total\">Hàng về kho {warehouse.WareHouseName}:</span><span> " + string.Format("{0:dd/MM/yyyy HH:mm}", Convert.ToDateTime(item.DateInVNWareHouse)) + "</span></p>");
                     }
                     else
                     {

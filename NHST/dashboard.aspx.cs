@@ -43,6 +43,7 @@ namespace NHST
                     var os6 = os.Take(6).ToList();
                     foreach (var item in os6)
                     {
+                        var warehouse = WarehouseController.GetByID(Convert.ToInt32(item.ReceivePlace));
                         ohtml.Append("<tr>");
                         ohtml.Append("<td>" + item.ID + "</td>");
                         ohtml.Append("<td>" + string.Format("{0:N0}", Convert.ToDouble(item.TotalPriceVND)) + " VNĐ</td>");
@@ -57,12 +58,12 @@ namespace NHST
                             }
                             else
                             {
-                                ohtml.Append("<td>" + PJUtils.IntToRequestAdminNew(Convert.ToInt32(item.Status)) + "</td>");
+                                ohtml.Append("<td>" + PJUtils.IntToRequestAdminNewWithWarehouseName(Convert.ToInt32(item.Status), warehouse.WareHouseName) + "</td>");
                             }
                         }
                         else
                         {
-                            ohtml.Append("<td>" + PJUtils.IntToRequestAdminNew(Convert.ToInt32(item.Status)) + "</td>");
+                            ohtml.Append("<td>" + PJUtils.IntToRequestAdminNewWithWarehouseName(Convert.ToInt32(item.Status), warehouse.WareHouseName) + "</td>");
                         }
                         ohtml.Append("<td class=\"tb-date\"><div class=\"action-table\"><a href=\"/chi-tiet-don-hang/" + item.ID + "\"><i class=\"material-icons\">remove_red_eye</i><span>Chi tiết</span></a></div></td>");
                         ohtml.Append("</tr>");
@@ -77,6 +78,8 @@ namespace NHST
                     var os6 = os1.Take(6).ToList();
                     foreach (var item in os6)
                     {
+                        var warehouse = WarehouseController.GetByID(Convert.ToInt32(item.ReceivePlace));
+
                         ottml.Append("<tr>");
                         ottml.Append("<td>" + item.ID + "</td>");
                         ottml.Append("<td>" + string.Format("{0:N0}", Convert.ToDouble(item.TotalPriceVND)) + " VNĐ</td>");
@@ -91,12 +94,12 @@ namespace NHST
                             }
                             else
                             {
-                                ottml.Append("<td>" + PJUtils.IntToRequestAdminNew(Convert.ToInt32(item.Status)) + "</td>");
+                                ottml.Append("<td>" + PJUtils.IntToRequestAdminNewWithWarehouseName(Convert.ToInt32(item.Status), warehouse.WareHouseName) + "</td>");
                             }
                         }
                         else
                         {
-                            ottml.Append("<td>" + PJUtils.IntToRequestAdminNew(Convert.ToInt32(item.Status)) + "</td>");
+                            ottml.Append("<td>" + PJUtils.IntToRequestAdminNewWithWarehouseName(Convert.ToInt32(item.Status), warehouse.WareHouseName) + "</td>");
                         }
                         ottml.Append("<td class=\"tb-date\"><div class=\"action-table\"><a href=\"/chi-tiet-don-hang/" + item.ID + "\"><i class=\"material-icons\">remove_red_eye</i><span>Chi tiết</span></a></div></td>");
                         ottml.Append("</tr>");
@@ -111,13 +114,14 @@ namespace NHST
                     var ts6 = ts.Take(6).ToList();
                     foreach (var item in ts6)
                     {
+                        var warehouse = WarehouseController.GetByID(item.WareHouseID ?? 0);
 
                         thtml.Append("<tr>");
                         thtml.Append("<td>" + item.ID + "</td>");
                         thtml.Append("<td>" + item.BarCode + "</td>");
                         thtml.Append("<td>" + item.Weight + " Kg</td>");
                        
-                        thtml.Append("<td>" + PJUtils.GeneralTransportationOrderNewStatus(Convert.ToInt32(item.Status)) + "</td>");
+                        thtml.Append("<td>" + PJUtils.GeneralTransportationOrderNewStatusWithWarehouseName(Convert.ToInt32(item.Status),warehouse.WareHouseName) + "</td>");
                         thtml.Append("<td class=\"no-wrap\">" + string.Format("{0:dd/MM/yyyy}", item.CreatedDate) + "</td>");
                         thtml.Append("<td class=\"tb-date\"><div class=\"action-table\"><a href=\"/danh-sach-kien-yeu-cau-ky-gui\" ><i class=\"material-icons\">remove_red_eye</i><span>Chi tiết</span></a></div></td>");
                         thtml.Append("</tr>");

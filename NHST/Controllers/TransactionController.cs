@@ -1,4 +1,5 @@
-﻿using NHST.Models;
+﻿using Newtonsoft.Json.Linq;
+using NHST.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,17 @@ namespace NHST.Controllers
                             account.Wallet = wallet;
                             account.ModifiedBy = userUserName;
                             account.ModifiedDate = currentDate;
+                            if (account.RoleID == 1)
+                            {
+                                decimal oldTransactionValue = account.TotalTransactionValue ?? 0;
+                                decimal newTransactionValue = oldTransactionValue + (decimal)custDeposit;
+                                account.TotalTransactionValue = newTransactionValue;
+                                var userLevel = UserLevelController.GetByFromTo(newTransactionValue);
+                                if (userLevel != null)
+                                {
+                                    account.LevelID = userLevel.ID;
+                                }
+                            }
                         }
                         //Cập nhật trạng thái, số tiền cọc của đơn hàng, ngày đặt cọc
                         var or = dbe.tbl_MainOder.Where(o => o.UID == userID && o.ID == orderID).FirstOrDefault();
@@ -117,9 +129,21 @@ namespace NHST.Controllers
                         var a = dbe.tbl_Account.Where(ac => ac.ID == userID).FirstOrDefault();
                         if (a != null)
                         {
+
                             a.Wallet = walletLeft;
                             a.ModifiedBy = userName;
                             a.ModifiedDate = currentDate;
+                            if (a.RoleID == 1)
+                            {
+                                decimal oldTransactionValue = a.TotalTransactionValue ?? 0;
+                                decimal newTransactionValue = oldTransactionValue + (decimal)moneyleft;
+                                a.TotalTransactionValue = newTransactionValue;
+                                var userLevel = UserLevelController.GetByFromTo(newTransactionValue);
+                                if (userLevel != null)
+                                {
+                                    a.LevelID = userLevel.ID;
+                                }
+                            }
                         }
 
                         tbl_HistoryOrderChange h = new tbl_HistoryOrderChange();

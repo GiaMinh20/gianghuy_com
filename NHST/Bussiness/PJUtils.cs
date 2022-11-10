@@ -1161,6 +1161,36 @@ namespace NHST.Bussiness
 
         }
 
+        //New
+        public static string IntToRequestAdminNewWithWarehouseName(int i, string warehouseName)
+        {
+            if (i == 0)
+                return "<span class=\"badge red darken-2 white-text border-radius-2\">Chờ đặt cọc</span>";
+            else if (i == 1)
+                return "<span class=\"badge black darken-2 white-text border-radius-2\">Hủy đơn hàng</span>";
+            else if (i == 2)
+                return "<span class=\"badge orange darken-2 white-text border-radius-2\">Khách đã đặt cọc</span>";
+            else if (i == 3)
+                return "<span class=\"badge green darken-2 white-text border-radius-2\">Chờ duyệt đơn</span>";
+            else if (i == 4)
+                return "<span class=\"badge green darken-2 white-text border-radius-2\">Shop phát hàng</span>";
+            else if (i == 5)
+                return "<span class=\"badge green darken-2 white-text border-radius-2\">Đã mua hàng</span>";
+            else if (i == 6)
+                return "<span class=\"badge green darken-2 white-text border-radius-2\">Đã về kho TQ</span>";
+            else if (i == 7)
+                return $"<span class=\"badge orange darken-2 white-text border-radius-2\">Đã về kho {warehouseName}</span>";
+            else if (i == 8)
+                return "<span class=\"badge yellow darken-2 white-text border-radius-2\">Đang vận chuyển về VN</span>";
+            else if (i == 9)
+                return "<span class=\"badge blue darken-2 white-text border-radius-2\">Khách đã thanh toán</span>";
+            else if (i == 10)
+                return "<span class=\"badge blue darken-2 white-text border-radius-2\">Đã hoàn thành</span>";
+            else
+                return "";
+
+        }
+
         public static string ReturnStatusPayHelpNew(int status)
         {
             if (status == 2)
@@ -1398,6 +1428,23 @@ namespace NHST.Bussiness
                 return "<span class=\"badge orange darken-2 white-text border-radius-2\">Đã về kho TQ</span>";
             else if (status == 4)
                 return "<span class=\"badge green darken-2 white-text border-radius-2\">Đã về kho đích</span>";
+            else if (status == 5)
+                return "<span class=\"badge blue darken-2 white-text border-radius-2\">Đã yêu cầu</span>";
+            else
+                return "<span class=\"badge blue darken-2 white-text border-radius-2\">Đã giao khách hàng</span>";
+        }
+        public static string GeneralTransportationOrderNewStatusWithWarehouseName(int status, string warehouseName)
+        {
+            if (status == 0)
+                return "<span class=\"badge black darken-2 white-text border-radius-2\">Đã hủy</span>";
+            else if (status == 1)
+                return "<span class=\"badge red darken-2 white-text border-radius-2\">Đơn hàng mới</span>";
+            else if (status == 2)
+                return "<span class=\"badge yellow darken-2 white-text border-radius-2\">Đã duyệt</span>";
+            else if (status == 3)
+                return "<span class=\"badge orange darken-2 white-text border-radius-2\">Đã về kho TQ</span>";
+            else if (status == 4)
+                return $"<span class=\"badge green darken-2 white-text border-radius-2\">Đã về kho {warehouseName}</span>";
             else if (status == 5)
                 return "<span class=\"badge blue darken-2 white-text border-radius-2\">Đã yêu cầu</span>";
             else

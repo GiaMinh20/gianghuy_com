@@ -182,9 +182,11 @@ namespace NHST
 
                 double subfeebp = feebpnotdc * UL_CKFeeBuyPro / 100;
                 double feebp = feebpnotdc - subfeebp;
-                if (feebp < minfeeservice)
-                    feebp = minfeeservice;
-
+                if (obj_user.RoleID == 1)
+                {
+                    if (feebp < minfeeservice)
+                        feebp = minfeeservice;
+                }
                 string LinkImage = "";
                 double TotalPriceVND = (priceCYN * currency) + feebp;
                 string AmountDeposit = (TotalPriceVND * LessDeposit / 100).ToString();
@@ -262,7 +264,7 @@ namespace NHST
                         if (image.Contains("%3A"))
                         {
                             image = image.Replace("%3A", ":");
-                        }                        
+                        }
                         HttpPostedFile postedFile = Request.Files["" + productimage + ""];
                         string imageinput = "";
                         if (postedFile != null && postedFile.ContentLength > 0)

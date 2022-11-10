@@ -555,11 +555,13 @@ namespace NHST.manager
                                         si.NVKiemdem = string.Empty;
                                     sis.Add(si);
                                 }
-
-                                bi.BigpackageSmallPackageCount = smallpackages.Count;
-                                bi.Smallpackages = sis;
-                                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                                return serializer.Serialize(bi);
+                                if (sis.Count > 0)
+                                {
+                                    bi.BigpackageSmallPackageCount = smallpackages.Count;
+                                    bi.Smallpackages = sis;
+                                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                    return serializer.Serialize(bi);
+                                }
                             }
 
                         }

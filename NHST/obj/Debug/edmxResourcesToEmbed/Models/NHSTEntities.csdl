@@ -139,6 +139,7 @@
     <Property Name="WareHouseVN" Type="Int32" />
     <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="FeeTQVNPerVolume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TotalTransactionValue" Type="Decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="tbl_AccountantOutStockPayment">
     <Key>
@@ -1808,6 +1809,8 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="FeeVolume" Type="Double" />
+    <Property Name="FromTransactionValue" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ToTransactionValue" Type="Decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="tbl_Volume">
     <Key>

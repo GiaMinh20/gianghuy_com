@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NHST.manager {
-    
-    
-    public partial class User_Level {
-        
+namespace NHST.manager
+{
+
+
+    public partial class User_Level
+    {
+
         /// <summary>
         /// ltr control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltr;
-        
+
         /// <summary>
         /// lbID control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbID;
-        
+
         /// <summary>
         /// txtLevelName control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLevelName;
-        
+
         /// <summary>
         /// txtFeeBuyPro control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFeeBuyPro;
-        
+
         /// <summary>
         /// txtFeeWeight control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFeeWeight;
-        
+
         /// <summary>
         /// txtLessDeposit control.
         /// </summary>
@@ -65,7 +67,25 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLessDeposit;
-        
+
+        /// <summary>
+        /// txtTransactionFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTransactionFrom;
+
+        /// <summary>
+        /// txtTransactionTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTransactionTo;
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -74,7 +94,7 @@ namespace NHST.manager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// hdfID control.
         /// </summary>

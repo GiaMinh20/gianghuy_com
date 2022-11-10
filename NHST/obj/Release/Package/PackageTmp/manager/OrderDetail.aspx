@@ -1981,7 +1981,10 @@
                     console.log(transactionCodeMainOrderCodeHTML);
                     var html = ` <tr class="ordercode order-versionnew" data-packageID="0">
                               <td><input class="transactionCode" type="text" value=""></td>
-                              <td><input class="transactionWeight" onkeyup="returnWeightFee()" data-type="text" type="text" value="0"></td>`;
+                              <td><input class="transactionWeight" onkeyup="returnWeightFee()" data-type="text" type="text" value="0"></td>
+                              <td><input class="transactionWeight" data-type="text" type="text" value="0"></td>
+                              <td><input class="transactionWeight" data-type="text" type="text" value="0"></td>
+                              <td><input class="transactionWeight" data-type="text" type="text" value="0"></td>`;
                     html += `<td>
                             <div class="input-field">
                                  <select class="transactionCodeMainOrderCode"">`+ transactionCodeMainOrderCodeHTML + `;

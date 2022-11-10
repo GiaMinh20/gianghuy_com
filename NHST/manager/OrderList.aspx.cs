@@ -780,14 +780,14 @@ namespace NHST.manager
                                                 int d = CreatedDate.Subtract(createdDate).Days;
                                                 if (d > 90)
                                                 {
-                                                    salepercentaf3m = Convert.ToDouble(staff.PercentReceive);
+                                                    //salepercentaf3m = Convert.ToDouble(staff.PercentReceive);
                                                     double per = Math.Round(feebp * salepercentaf3m / 100, 0);
                                                     StaffIncomeController.Update(rStaffID, mo.TotalPriceVND, salepercentaf3m.ToString(), 1,
                                                         per.ToString(), false, currentDate, username);
                                                 }
                                                 else
                                                 {
-                                                    salepercent = Convert.ToDouble(staff.PercentReceive);
+                                                    //salepercent = Convert.ToDouble(staff.PercentReceive);
                                                     double per = Math.Round(feebp * salepercent / 100, 0);
                                                     StaffIncomeController.Update(rStaffID, mo.TotalPriceVND, salepercent.ToString(), 1,
                                                         per.ToString(), false, currentDate, username);
@@ -893,7 +893,7 @@ namespace NHST.manager
                                             {
                                                 double totalpriceloi = totalPrice - totalRealPrice;
                                                 totalpriceloi = Math.Round(totalpriceloi, 0);
-                                                dathangpercent = Convert.ToDouble(staff.PercentReceive);
+                                                //dathangpercent = Convert.ToDouble(staff.PercentReceive);
                                                 double income = Math.Round(totalpriceloi * dathangpercent / 100, 0);
                                                 //double income = totalpriceloi;
                                                 StaffIncomeController.Update(staff.ID, totalRealPrice.ToString(), dathangpercent.ToString(), 1,

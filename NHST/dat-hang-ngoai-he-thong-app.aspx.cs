@@ -202,9 +202,11 @@ namespace NHST
                 double subfeebp = feebpnotdc * UL_CKFeeBuyPro / 100;
                 double feebp = feebpnotdc - subfeebp;
                 feebp = Math.Round(feebp, 0);
-                if (feebp < minfeeservice)
-                    feebp = minfeeservice;
-                
+                if (obj_user.RoleID == 1)
+                {
+                    if (feebp < minfeeservice)
+                        feebp = minfeeservice;
+                }
                 double TotalPriceVND = (priceCYN * currency) + feebp;
                 string AmountDeposit = (TotalPriceVND * LessDeposit / 100).ToString();
 

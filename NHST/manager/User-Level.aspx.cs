@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using MB.Extensions;
 using System.Web.Script.Serialization;
 using System.Web.Services;
+using Newtonsoft.Json.Linq;
 
 namespace NHST.manager
 {
@@ -54,6 +55,8 @@ namespace NHST.manager
                 l.LevelName = f.LevelName;
                 l.FeeBuyPro = f.FeeBuyPro;
                 l.FeeWeight = f.FeeWeight;
+                l.FromTransactionValue = f.FromTransactionValue;
+                l.ToTransactionValue = f.ToTransactionValue;
                 l.LessDeposit = f.LessDeposit;
                 return serializer.Serialize(l);
             }
@@ -65,8 +68,8 @@ namespace NHST.manager
             string Username = Session["userLoginSystem"].ToString();
             int ID = hdfID.Value.ToInt(0);
             string BackLink = "/manager/User-Level.aspx";
-            string kq = UserLevelController.Update(ID, txtLevelName.Text.Trim(), Convert.ToDouble(txtFeeBuyPro.Text), Convert.ToDouble(txtFeeWeight.Text),
-                Convert.ToDouble(txtLessDeposit.Text), 1, DateTime.Now, Username);
+            string kq = UserLevelController.UpdateTransactionValue(ID, txtLevelName.Text.Trim(), Convert.ToDouble(txtFeeBuyPro.Text), Convert.ToDouble(txtFeeWeight.Text),
+                Convert.ToDouble(txtLessDeposit.Text), Convert.ToDecimal(txtTransactionFrom.Text),Convert.ToDecimal(txtTransactionTo.Text), 1, DateTime.Now, Username);
             if (!string.IsNullOrEmpty(kq))
                 PJUtils.ShowMessageBoxSwAlert("Cập nhật thành công.", "s", true, Page);
             else

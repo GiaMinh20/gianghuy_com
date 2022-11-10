@@ -214,6 +214,7 @@ namespace NHST.manager
                                         //Trừ tiền wallet, ghi lịch sử history pay wallet
                                         double walletleft = currentWallet - Amount;
                                         AccountController.updateWallet(uid, walletleft, currentDate, username_current);
+                                        AccountController.updateTransactionValue(uid, Amount, currentDate, username_current);
                                         HistoryPayWalletController.Insert(uid, userDathang.Username, id, Amount, userDathang.Username + " đã đặt cọc đơn hàng: " + id + ".",
                                             walletleft, 1, 1, currentDate, username_current);
                                         HistoryOrderChangeController.Insert(o.ID, user_currentID, username_current, username_current +
@@ -266,8 +267,9 @@ namespace NHST.manager
                                         double walletleft = currentWallet - Amount;
                                         double payall = Amount + OCurrent_deposit;
 
-
                                         AccountController.updateWallet(uid, walletleft, currentDate, username_current);
+                                        AccountController.updateTransactionValue(uid, Amount, currentDate, username_current);
+
                                         HistoryPayWalletController.Insert(uid, userDathang.Username, id, Amount, userDathang.Username + " đã thanh toán đơn hàng: " + id + ".",
                                             walletleft, 1, 3, currentDate, username_current);
                                         HistoryOrderChangeController.Insert(o.ID, user_currentID, username_current, username_current +

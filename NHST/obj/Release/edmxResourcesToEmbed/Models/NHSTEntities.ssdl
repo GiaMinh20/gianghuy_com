@@ -32,6 +32,7 @@
     <Property Name="WareHouseVN" Type="int" />
     <Property Name="Token" Type="nvarchar(max)" />
     <Property Name="FeeTQVNPerVolume" Type="nvarchar(max)" />
+    <Property Name="TotalTransactionValue" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="tbl_AccountantOutStockPayment">
     <Key>
@@ -1736,6 +1737,8 @@
     <Property Name="ModifiedDate" Type="datetime" />
     <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
     <Property Name="FeeVolume" Type="float" />
+    <Property Name="FromTransactionValue" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ToTransactionValue" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="tbl_Volume">
     <Key>

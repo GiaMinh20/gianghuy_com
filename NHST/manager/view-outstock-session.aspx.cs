@@ -11,6 +11,8 @@ using System.Web.Services;
 using System.Web.Script.Serialization;
 using MB.Extensions;
 using System.Text;
+using static NHST.WebService1;
+using System.Security.Cryptography;
 
 namespace NHST.manager
 {
@@ -580,6 +582,7 @@ namespace NHST.manager
                             //AdminSendUserWalletController.UpdateStatus(id, 2, contentin, currentDate, username_current);
                             AdminSendUserWalletController.Insert(user_wallet.ID, user_wallet.Username, totalPay, 2, 100, contentin, currentDate, username_current);
                             AccountController.updateWallet(user_wallet.ID, wallet, currentDate, username_current);
+                            
                             HistoryPayWalletController.Insert(user_wallet.ID, user_wallet.Username, 0, totalPay, user_wallet.Username + " đã được nạp tiền vào tài khoản.", wallet, 2, 4, currentDate, username_current);
                         }
                         if (!string.IsNullOrEmpty(mIDsString))
@@ -616,6 +619,7 @@ namespace NHST.manager
                                                 double walletLeft = wallet - leftpay;
                                                 MainOrderController.UpdateStatus(o.ID, UID, 9);
                                                 AccountController.updateWallet(UID, walletLeft, currentDate, username_current);
+                                                AccountController.updateTransactionValue(UID, leftpay, currentDate, username_current);
 
                                                 HistoryOrderChangeController.Insert(o.ID, UID_Admin, username_current, username_current +
                                                             " đã đổi trạng thái của đơn hàng ID là: " + o.ID + ", từ: Đã về kho đích, sang: Khách đã thanh toán.", 1, currentDate);
@@ -731,6 +735,7 @@ namespace NHST.manager
                                                     double walletLeft = wallet - leftMoney;
                                                     TransportationOrderController.UpdateStatusAndDeposited(t.ID, totalPrice, 6, currentDate, username_current);
                                                     AccountController.updateWallet(UID, walletLeft, currentDate, username_current);
+
                                                     HistoryPayWalletController.InsertTransportation(UID, username_current, 0, leftMoney,
                                                         username_current + " đã thanh toán đơn hàng vận chuyển hộ: " + t.ID + ".",
                                                         walletLeft, 1, 8, currentDate, username_current, t.ID);
@@ -993,6 +998,7 @@ namespace NHST.manager
                                                     double walletLeft = wallet - leftpay;
                                                     MainOrderController.UpdateStatus(o.ID, UID, 9);
                                                     AccountController.updateWallet(UID, walletLeft, currentDate, username_current);
+                                                    AccountController.updateTransactionValue(UID, leftpay, currentDate, username_current);
 
                                                     HistoryOrderChangeController.Insert(o.ID, UID_Admin, username_current, username_current +
                                                                 " đã đổi trạng thái của đơn hàng ID là: " + o.ID + ", từ: Đã về kho đích, sang: Khách đã thanh toán.", 1, currentDate);
@@ -1108,6 +1114,7 @@ namespace NHST.manager
                                                         double walletLeft = wallet - leftMoney;
                                                         TransportationOrderController.UpdateStatusAndDeposited(t.ID, totalPrice, 6, currentDate, username_current);
                                                         AccountController.updateWallet(UID, walletLeft, currentDate, username_current);
+
                                                         HistoryPayWalletController.InsertTransportation(UID, username_current, 0, leftMoney,
                                                             username_current + " đã thanh toán đơn hàng vận chuyển hộ: " + t.ID + ".",
                                                             walletLeft, 1, 8, currentDate, username_current, t.ID);

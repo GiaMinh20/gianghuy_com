@@ -37,6 +37,7 @@
           <Property Name="WareHouseVN" Type="int" />
           <Property Name="Token" Type="nvarchar(max)" />
           <Property Name="FeeTQVNPerVolume" Type="nvarchar(max)" />
+          <Property Name="TotalTransactionValue" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="tbl_AccountantOutStockPayment">
           <Key>
@@ -1741,6 +1742,8 @@
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
           <Property Name="FeeVolume" Type="float" />
+          <Property Name="FromTransactionValue" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ToTransactionValue" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="tbl_Volume">
           <Key>
@@ -2719,6 +2722,7 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <Property Name="WareHouseVN" Type="Int32" />
           <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FeeTQVNPerVolume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalTransactionValue" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="tbl_AccountantOutStockPayment">
           <Key>
@@ -4388,6 +4392,8 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="FeeVolume" Type="Double" />
+          <Property Name="FromTransactionValue" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToTransactionValue" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="tbl_Volume">
           <Key>
@@ -4873,6 +4879,7 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <EntitySetMapping Name="tbl_Account">
             <EntityTypeMapping TypeName="NHSTModel.tbl_Account">
               <MappingFragment StoreEntitySet="tbl_Account">
+                <ScalarProperty Name="TotalTransactionValue" ColumnName="TotalTransactionValue" />
                 <ScalarProperty Name="FeeTQVNPerVolume" ColumnName="FeeTQVNPerVolume" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
                 <ScalarProperty Name="WareHouseVN" ColumnName="WareHouseVN" />
@@ -6642,6 +6649,8 @@ warning 6002: The table/view 'gianghuy239_com.dbo.View_UserListWithWallet' does 
           <EntitySetMapping Name="tbl_UserLevel">
             <EntityTypeMapping TypeName="NHSTModel.tbl_UserLevel">
               <MappingFragment StoreEntitySet="tbl_UserLevel">
+                <ScalarProperty Name="ToTransactionValue" ColumnName="ToTransactionValue" />
+                <ScalarProperty Name="FromTransactionValue" ColumnName="FromTransactionValue" />
                 <ScalarProperty Name="FeeVolume" ColumnName="FeeVolume" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />

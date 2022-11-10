@@ -368,6 +368,7 @@ namespace NHST
                         html.Append(item.CompleteDate);
                         html.Append("</td>");
 
+                        var warehouse = WarehouseController.GetByID(item.ReceivePlace);
                         if (item.OrderType == 3)
                         {
                             if (item.IsCheckNotiPrice == true)
@@ -895,8 +896,9 @@ namespace NHST
                                                 {
                                                     double walletleft = accWallet - mustDeposit;
                                                     walletleft = Math.Round(walletleft, 0);
-                                                    AccountController.updateWallet(obj_user.ID, walletleft, currentDate,
-                                                        obj_user.Username);
+                                                    AccountController.updateWallet(obj_user.ID, walletleft, currentDate,obj_user.Username);
+                                                    AccountController.updateTransactionValue(obj_user.ID, mustDeposit, currentDate,obj_user.Username);
+                                                    
                                                     //Cập nhật lại MainOrder                                
                                                     MainOrderController.UpdateStatus(mainOrder.ID, obj_user.ID, 2);
                                                     int statusOOld = Convert.ToInt32(mainOrder.Status);
@@ -1035,6 +1037,7 @@ namespace NHST
                                                     //    StatusChangeHistoryController.Insert(mainOrder.ID, statusOOld, statusONew, currentDate, username_current);
                                                     //}
                                                     AccountController.updateWallet(UIDOrder, walletLeft, currentDate, accPay.Username);
+                                                    AccountController.updateTransactionValue(UIDOrder, moneyleft, currentDate, accPay.Username);
 
                                                     HistoryOrderChangeController.Insert(mainOrder.ID, UIDOrder, accPay.Username, accPay.Username +
                                                                 " đã đổi trạng thái của đơn hàng ID là: " + mainOrder.ID + ", từ: Chờ thanh toán, sang: Khách đã thanh toán.", 1, currentDate);
@@ -1518,6 +1521,8 @@ namespace NHST
                                             double walletleft = Math.Round((wallet - custDeposit), 0);
 
                                             AccountController.updateWallet(obj_user.ID, walletleft, currentDate, obj_user.Username);
+                                            AccountController.updateTransactionValue(obj_user.ID, custDeposit, currentDate, obj_user.Username);
+                                            
                                             MainOrderController.UpdateStatus(o.ID, obj_user.ID, 2);
                                             MainOrderController.UpdateDepositDate(o.ID, currentDate);
                                             MainOrderController.UpdateDeposit(o.ID, obj_user.ID, amountdeposit.ToString());
@@ -1615,7 +1620,6 @@ namespace NHST
             }
         }
 
-
         protected void btnPayAll_Click(object sender, EventArgs e)
         {
             int t = ViewState["t"].ToString().ToInt(0);
@@ -1665,6 +1669,7 @@ namespace NHST
                                         MainOrderController.UpdateStatus(o.ID, obj_user.ID, 9);
                                         MainOrderController.UpdatePayDate(o.ID, currentDate);
                                         AccountController.updateWallet(obj_user.ID, walletLeft, currentDate, obj_user.Username);
+                                        AccountController.updateTransactionValue(obj_user.ID, moneyleft, currentDate, obj_user.Username);
                                         HistoryOrderChangeController.Insert(o.ID, obj_user.ID, obj_user.Username, obj_user.Username +
                                         " đã đổi trạng thái của đơn hàng ID là: " + o.ID + ", từ: Chờ thanh toán, sang: Khách đã thanh toán.", 1, currentDate);
                                         HistoryPayWalletController.Insert(obj_user.ID, obj_user.Username, o.ID, moneyleft, obj_user.Username + " đã thanh toán đơn hàng: " + o.ID + ".", walletLeft, 1, 3, currentDate, obj_user.Username);

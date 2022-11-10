@@ -42,5 +42,6 @@ namespace NHST.Models
         public Nullable<int> WareHouseVN { get; set; }
         public string Token { get; set; }
         public string FeeTQVNPerVolume { get; set; }
+        public Nullable<decimal> TotalTransactionValue { get; set; }
     }
 }

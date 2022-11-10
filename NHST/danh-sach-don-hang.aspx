@@ -18,7 +18,7 @@
             <div class="content-wrapper-before blue-grey lighten-5"></div>
             <div class="col s12">
                 <div class="container">
-                    <div class="all">
+                    <div class="all" style="width: auto; padding: 0 5rem;">
                         <div class="card-panel mt-3 no-shadow">
                             <div class="row">
                                 <div class="col s12">
@@ -217,11 +217,11 @@
                                                                 </asp:DropDownList>
                                                                 <label for="status">Trạng thái</label>
                                                             </div>
-                                                            <div class="input-field col s6 l6">                                                                
+                                                            <div class="input-field col s6 l6">
                                                                 <asp:TextBox runat="server" ID="FD" placeholder="" CssClass="datetimepicker from-date"></asp:TextBox>
                                                                 <label>Từ ngày</label>
                                                             </div>
-                                                            <div class="input-field col s6 l6">                                                               
+                                                            <div class="input-field col s6 l6">
                                                                 <asp:TextBox runat="server" placeholder="" ID="TD" CssClass="datetimepicker to-date"></asp:TextBox>
                                                                 <label>Đến ngày</label>
                                                                 <span class="helper-text"
@@ -249,7 +249,7 @@
                                                                     <th>Ảnh
                                                                         <br />
                                                                         sản phẩm</th>
-                                                                   <%-- <th>Tổng link</th>--%>
+                                                                    <%-- <th>Tổng link</th>--%>
                                                                     <th>Website</th>
                                                                     <th>Tổng tiền</th>
                                                                     <th class="tb-date">Số tiền

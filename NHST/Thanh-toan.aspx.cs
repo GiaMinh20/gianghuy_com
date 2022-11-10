@@ -384,8 +384,12 @@ namespace NHST
                                 double subfeebp = feebpnotdc * UL_CKFeeBuyPro / 100;
                                 double feebp = feebpnotdc - subfeebp;
                                 feebp = Math.Round(feebp, 0);
-                                if (feebp < minfeeservice)
-                                    feebp = minfeeservice;
+                                if (obj_user.RoleID == 1)
+                                {
+                                    if (feebp < minfeeservice)
+                                        feebp = minfeeservice;
+                                }
+                                
                                 FeeBuyPro = feebp;
 
                                 double totalInsur = 0;

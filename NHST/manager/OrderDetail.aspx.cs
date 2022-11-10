@@ -743,6 +743,8 @@ namespace NHST.manager
                     #endregion
                     ltrpa.Text = htmlPaid.ToString();
 
+                    //Tên kho VN
+                    var warehouse = WarehouseController.GetByID(Convert.ToInt32(o.ReceivePlace));
                     if (obj_user != null)
                     {
                         hdfID.Value = obj_user.ID.ToString();
@@ -758,7 +760,7 @@ namespace NHST.manager
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                            ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                             ddlStatus.Enabled = true;
@@ -795,7 +797,7 @@ namespace NHST.manager
                                 ddlStatus.Enabled = false;
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                                ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                                 ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pCNShipFeeNDT.Visible = false;
@@ -826,7 +828,7 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                                ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                                 ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pPackedNDT.Enabled = false;
@@ -853,7 +855,7 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                                ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                                 ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pPackedNDT.Enabled = false;
@@ -885,7 +887,7 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                                ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                                 ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                                 ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                                 pPackedNDT.Enabled = false;
@@ -900,7 +902,7 @@ namespace NHST.manager
                                 ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                                 ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                                 ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                                ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                                ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                                 pPackedNDT.Enabled = false;
                                 pPacked.Enabled = false;
                                 pWeightNDT.Enabled = false;
@@ -933,7 +935,7 @@ namespace NHST.manager
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                            ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
 
@@ -959,7 +961,7 @@ namespace NHST.manager
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                            ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
 
@@ -984,7 +986,7 @@ namespace NHST.manager
                             ddlStatus.Items.Add(new ListItem("Shop phát hàng", "4"));
                             ddlStatus.Items.Add(new ListItem("Đã về kho TQ", "6"));
                             ddlStatus.Items.Add(new ListItem("Đang vận chuyển về VN", "8"));
-                            ddlStatus.Items.Add(new ListItem("Đã về kho VN", "7"));
+                            ddlStatus.Items.Add(new ListItem($"Đã về kho {warehouse.WareHouseName}", "7"));
                             ddlStatus.Items.Add(new ListItem("Khách đã thanh toán", "9"));
                             ddlStatus.Items.Add(new ListItem("Đã hoàn thành", "10"));
                             ddlStatus.Enabled = false;
@@ -2387,6 +2389,8 @@ namespace NHST.manager
                             #region Lấy ra text của trạng thái đơn hàng
                             string orderstatus = "";
                             int currentOrderStatus = Convert.ToInt32(o.Status);
+                            var warehouse = WarehouseController.GetByID(Convert.ToInt32(o.ReceivePlace));
+
                             switch (currentOrderStatus)
                             {
                                 case 0:
@@ -2405,7 +2409,7 @@ namespace NHST.manager
                                     orderstatus = "Đã về kho TQ";
                                     break;
                                 case 7:
-                                    orderstatus = "Đã về kho VN";
+                                    orderstatus = $"Đã về kho {warehouse.WareHouseName}";
                                     break;
                                 case 8:
                                     orderstatus = "Chờ thanh toán";
@@ -3325,18 +3329,40 @@ namespace NHST.manager
                                                     int d = CreatedDate.Subtract(createdDate).Days;
                                                     if (d > 90)
                                                     {
-                                                        salepercentaf3m = Convert.ToDouble(staff.PercentReceive);
+                                                        //salepercentaf3m = Convert.ToDouble(staff.PercentReceive);
                                                         double per = Math.Round(feebp * salepercentaf3m / 100, 0);
                                                         StaffIncomeController.Update(rStaffID, mo.TotalPriceVND, salepercentaf3m.ToString(), 1,
                                                             per.ToString(), false, currentDate, username);
                                                     }
                                                     else
                                                     {
-                                                        salepercent = Convert.ToDouble(staff.PercentReceive);
+                                                        //salepercent = Convert.ToDouble(staff.PercentReceive);
                                                         double per = Math.Round(feebp * salepercent / 100, 0);
                                                         StaffIncomeController.Update(rStaffID, mo.TotalPriceVND, salepercent.ToString(), 1,
                                                             per.ToString(), false, currentDate, username);
                                                     }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var sale = AccountController.GetByID(SalerID);
+                                            if (sale != null)
+                                            {
+                                                salerName = sale.Username;
+                                                var createdDate = Convert.ToDateTime(sale.CreatedDate);
+                                                int d = CreatedDate.Subtract(createdDate).Days;
+                                                if (d > 90)
+                                                {
+                                                    double per = Math.Round(feebp * salepercentaf3m / 100, 0);
+                                                    StaffIncomeController.Insert(mo.ID, per.ToString(), salepercentaf3m.ToString(), SalerID, salerName, 6, 1, per.ToString(), false,
+                                                    CreatedDate, currentDate, username);
+                                                }
+                                                else
+                                                {
+                                                    double per = Math.Round(feebp * salepercent / 100, 0);
+                                                    StaffIncomeController.Insert(mo.ID, per.ToString(), salepercent.ToString(), SalerID, salerName, 6, 1, per.ToString(), false,
+                                                    CreatedDate, currentDate, username);
                                                 }
                                             }
                                         }
@@ -3393,13 +3419,40 @@ namespace NHST.manager
                                                 if (totalRealPrice > 0)
                                                 {
                                                     double totalpriceloi = totalPrice - totalRealPrice;
-                                                    dathangpercent = Convert.ToDouble(staff.PercentReceive);
+                                                    //dathangpercent = Convert.ToDouble(staff.PercentReceive);
                                                     double income = Math.Round(totalpriceloi * dathangpercent / 100, 0);
                                                     //double income = totalpriceloi;
                                                     StaffIncomeController.Update(staff.ID, totalRealPrice.ToString(), dathangpercent.ToString(), 1,
                                                                 income.ToString(), false, currentDate, username);
                                                 }
-
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var dathang = AccountController.GetByID(DathangID);
+                                            if (dathang != null)
+                                            {
+                                                dathangName = dathang.Username;
+                                                //double totalPrice = Convert.ToDouble(mo.TotalPriceVND);
+                                                double totalPrice = Convert.ToDouble(mo.PriceVND) + Convert.ToDouble(mo.FeeShipCN) - Convert.ToDouble(mo.PhuPhiKhac);
+                                                totalPrice = Math.Round(totalPrice, 0);
+                                                double totalRealPrice = 0;
+                                                if (!string.IsNullOrEmpty(mo.TotalPriceReal))
+                                                    totalRealPrice = Math.Round(Convert.ToDouble(mo.TotalPriceReal), 0);
+                                                if (totalRealPrice > 0)
+                                                {
+                                                    double totalpriceloi = totalPrice - totalRealPrice;
+                                                    totalpriceloi = Math.Round(totalpriceloi, 0);
+                                                    double income = Math.Round(totalpriceloi * dathangpercent / 100, 0);
+                                                    //double income = totalpriceloi;
+                                                    StaffIncomeController.Insert(mo.ID, totalpriceloi.ToString(), dathangpercent.ToString(), DathangID, dathangName, 3, 1,
+                                                        income.ToString(), false, CreatedDate, currentDate, username);
+                                                }
+                                                else
+                                                {
+                                                    StaffIncomeController.Insert(mo.ID, "0", dathangpercent.ToString(), DathangID, dathangName, 3, 1, "0", false,
+                                                    CreatedDate, currentDate, username);
+                                                }
                                             }
                                         }
                                     }
@@ -3513,14 +3566,14 @@ namespace NHST.manager
                                     int d = CreatedDate.Subtract(createdDate).Days;
                                     if (d > 90)
                                     {
-                                        salepercentaf3m = Convert.ToDouble(staff.PercentReceive);
+                                        //salepercentaf3m = Convert.ToDouble(staff.PercentReceive);
                                         double per = Math.Round(feebp * salepercentaf3m / 100, 0);
                                         StaffIncomeController.Update(rStaffID, mo.TotalPriceVND, salepercentaf3m.ToString(), 1,
                                             per.ToString(), false, currentDate, username);
                                     }
                                     else
                                     {
-                                        salepercent = Convert.ToDouble(staff.PercentReceive);
+                                        //salepercent = Convert.ToDouble(staff.PercentReceive);
                                         double per = Math.Round(feebp * salepercent / 100, 0);
                                         StaffIncomeController.Update(rStaffID, mo.TotalPriceVND, salepercent.ToString(), 1,
                                             per.ToString(), false, currentDate, username);
@@ -3600,7 +3653,7 @@ namespace NHST.manager
                                 {
                                     double totalpriceloi = totalPrice - totalRealPrice;
                                     totalpriceloi = Math.Round(totalpriceloi, 0);
-                                    dathangpercent = Convert.ToDouble(staff.PercentReceive);
+                                    //dathangpercent = Convert.ToDouble(staff.PercentReceive);
                                     double income = Math.Round(totalpriceloi * dathangpercent / 100, 0);
                                     //double income = totalpriceloi;
                                     StaffIncomeController.Update(staff.ID, totalRealPrice.ToString(), dathangpercent.ToString(), 1,

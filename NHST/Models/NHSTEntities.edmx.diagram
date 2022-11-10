@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8175352d3b445a7a7929b39d1556bcc" Name="Diagram1" ZoomLevel="83">
+      <Diagram DiagramId="a8175352d3b445a7a7929b39d1556bcc" Name="Diagram1" ZoomLevel="78">
         <EntityTypeShape EntityType="NHSTModel.tbl_Account" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="NHSTModel.tbl_AccountantOutStockPayment" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="NHSTModel.tbl_AccountInfo" Width="1.5" PointX="4.75" PointY="0.75" />

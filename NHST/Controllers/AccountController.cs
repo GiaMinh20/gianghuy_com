@@ -470,7 +470,7 @@ namespace NHST.Controllers
         }
         public static tbl_Account GetByID(int ID)
         {
-            using (var dbe = new NHSTEntities())  
+            using (var dbe = new NHSTEntities())
             {
                 tbl_Account acc = dbe.tbl_Account.Where(a => a.ID == ID).FirstOrDefault();
                 if (acc != null)
@@ -550,7 +550,7 @@ namespace NHST.Controllers
                 else
                     return null;
             }
-        }        
+        }
         public static string UpdateFeeRieng(int ID, string FeeBuyPro, string FeeTQVNPerWeight, string Currency)
         {
             using (var dbe = new NHSTEntities())
@@ -561,6 +561,37 @@ namespace NHST.Controllers
                     a.FeeBuyPro = FeeBuyPro;
                     a.FeeTQVNPerWeight = FeeTQVNPerWeight;
                     a.Currency = Convert.ToDouble(Currency);
+                    dbe.Configuration.ValidateOnSaveEnabled = false;
+                    string kq = dbe.SaveChanges().ToString();
+                    return kq;
+                }
+                else
+                    return null;
+            }
+        }
+
+        public static string updateTransactionValue(int ID, double value, DateTime ModifiedDate, string ModifiedBy)
+        {
+            using (var dbe = new NHSTEntities())
+            {
+                var a = dbe.tbl_Account.Where(ac => ac.ID == ID).FirstOrDefault();
+                if (a != null)
+                {
+                    a.ModifiedBy = ModifiedBy;
+                    a.ModifiedDate = ModifiedDate;
+
+                    if (a.RoleID == 1)
+                    {
+                        decimal oldTransactionValue = a.TotalTransactionValue ?? 0;
+                        decimal newTransactionValue = oldTransactionValue + (decimal)value;
+                        a.TotalTransactionValue = newTransactionValue;
+                        var userLevel = UserLevelController.GetByFromTo(newTransactionValue);
+                        if (userLevel != null)
+                        {
+                            a.LevelID = userLevel.ID;
+                        }
+                    }
+
                     dbe.Configuration.ValidateOnSaveEnabled = false;
                     string kq = dbe.SaveChanges().ToString();
                     return kq;
@@ -643,7 +674,7 @@ namespace NHST.Controllers
             using (var dbe = new NHSTEntities())
             {
                 List<tbl_Account> las = new List<tbl_Account>();
-                las = dbe.tbl_Account.Where(a =>  a.RoleID == RoleID).ToList();
+                las = dbe.tbl_Account.Where(a => a.RoleID == RoleID).ToList();
                 return las;
             }
         }

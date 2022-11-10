@@ -4,6 +4,7 @@
     <EntitySetMapping Name="tbl_Account">
       <EntityTypeMapping TypeName="NHSTModel.tbl_Account">
         <MappingFragment StoreEntitySet="tbl_Account">
+          <ScalarProperty Name="TotalTransactionValue" ColumnName="TotalTransactionValue" />
           <ScalarProperty Name="FeeTQVNPerVolume" ColumnName="FeeTQVNPerVolume" />
           <ScalarProperty Name="Token" ColumnName="Token" />
           <ScalarProperty Name="WareHouseVN" ColumnName="WareHouseVN" />
@@ -1773,6 +1774,8 @@
     <EntitySetMapping Name="tbl_UserLevel">
       <EntityTypeMapping TypeName="NHSTModel.tbl_UserLevel">
         <MappingFragment StoreEntitySet="tbl_UserLevel">
+          <ScalarProperty Name="ToTransactionValue" ColumnName="ToTransactionValue" />
+          <ScalarProperty Name="FromTransactionValue" ColumnName="FromTransactionValue" />
           <ScalarProperty Name="FeeVolume" ColumnName="FeeVolume" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />

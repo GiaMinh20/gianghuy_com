@@ -73,6 +73,14 @@
                 <asp:TextBox runat="server" id="txtLessDeposit" type="text" class="validate" data-type="text-only" value="0"></asp:TextBox>
                 <label for="edit_fee">Đặt cọc tối thiểu</label>
             </div>
+            <div class="input-field col s6">
+                <asp:TextBox runat="server" id="txtTransactionFrom" type="number" class="validate" data-type="text-only" value="0"></asp:TextBox>
+                <label for="edit_type">Tích lũy từ</label>
+            </div>
+            <div class="input-field col s6">
+                <asp:TextBox runat="server" id="txtTransactionTo" type="number" class="validate" data-type="text-only" value="0"></asp:TextBox>
+                <label for="edit_fee">Tích lũy đến</label>
+            </div>
         </div>
     </div>
     <div class="modal-ft">
@@ -101,6 +109,8 @@
                         $('#<%=txtLevelName.ClientID%>').val(data.LevelName);
                         $('#<%=txtFeeBuyPro.ClientID%>').val(data.FeeBuyPro);
                         $('#<%=txtFeeWeight.ClientID%>').val(data.FeeWeight);
+                        $('#<%=txtTransactionFrom.ClientID%>').val(data.FromTransactionValue);
+                        $('#<%=txtTransactionTo.ClientID%>').val(data.ToTransactionValue);
                         $('#<%=txtLessDeposit.ClientID%>').val(data.LessDeposit);
                         $('select').formSelect();
                     }

@@ -52,6 +52,32 @@ namespace NHST.Controllers
                     return null;
             }
         }
+
+        public static string UpdateTransactionValue(int ID, string LevelName, double FeeBuyPro, double FeeWeight, double LessDeposit, decimal transactionFrom, decimal transactionTo, int Status, DateTime ModifiedDate, string ModifiedBy)
+        {
+            using (var dbe = new NHSTEntities())
+            {
+
+                var level = dbe.tbl_UserLevel.Where(ac => ac.ID == ID).FirstOrDefault();
+                if (level != null)
+                {
+                    level.LevelName = LevelName;
+                    level.FeeBuyPro = FeeBuyPro;
+                    level.FeeWeight = FeeWeight;
+                    level.LessDeposit = LessDeposit;
+                    level.FromTransactionValue = transactionFrom;
+                    level.ToTransactionValue = transactionTo;
+                    level.Status = Status;
+                    level.ModifiedBy = ModifiedBy;
+                    level.ModifiedDate = ModifiedDate;
+                    dbe.Configuration.ValidateOnSaveEnabled = false;
+                    string kq = dbe.SaveChanges().ToString();
+                    return kq;
+                }
+                else
+                    return null;
+            }
+        }
         #endregion
         #region Select
         public static List<tbl_UserLevel> GetAll(string s)
@@ -69,6 +95,17 @@ namespace NHST.Controllers
             using (var dbe = new NHSTEntities())
             {
                 tbl_UserLevel level = dbe.tbl_UserLevel.Where(a => a.ID == ID).FirstOrDefault();
+                if (level != null)
+                    return level;
+                else
+                    return null;
+            }
+        }
+        public static tbl_UserLevel GetByFromTo(decimal value)
+        {
+            using (var dbe = new NHSTEntities())
+            {
+                tbl_UserLevel level = dbe.tbl_UserLevel.Where(a => value >= a.FromTransactionValue && value <= a.ToTransactionValue).FirstOrDefault();
                 if (level != null)
                     return level;
                 else

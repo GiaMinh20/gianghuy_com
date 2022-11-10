@@ -2460,6 +2460,7 @@ namespace NHST.Controllers
             public int SalerID { get; set; }
             public int DathangID { get; set; }
             public int TotalLink { get; set; }
+            public int ReceivePlace { get; set; }
         }
         public class OrderGetSQL
         {
@@ -2506,6 +2507,8 @@ namespace NHST.Controllers
             public string Cancel { get; set; }
             public int SalerID { get; set; }
             public int DathangID { get; set; }
+            public int ReceivePlace { get; set; }
+
         }
         #endregion
 
@@ -2552,7 +2555,7 @@ namespace NHST.Controllers
         {
             var list = new List<mainorder>();
             var sql = @"SELECT mo.ID,mo.TotalPriceVND,mo.LinkImage,mo.Deposit,mo.AmountDeposit,mo.FeeInWareHouse,mo.CreatedDate,mo.DepostiDate,mo.DateBuy,
-            mo.DateTQ,mo.DateShopPhatHang,mo.DateDangVeVN,mo.DateVN,mo.PayDate,mo.CompleteDate,mo.Status,mo.ShopName,mo.Site,mo.IsGiaohang,mo.OrderType,mo.IsCheckNotiPrice ";           
+            mo.DateTQ,mo.DateShopPhatHang,mo.DateDangVeVN,mo.DateVN,mo.PayDate,mo.CompleteDate,mo.Status,mo.ShopName,mo.Site,mo.IsGiaohang,mo.OrderType,mo.IsCheckNotiPrice, mo.ReceivePlace ";           
             sql += " FROM dbo.tbl_MainOder AS mo ";              
             sql += " where UID = " + UID + " AND mo.OrderType = " + OrderType + " ";
             if (status >= 0)
@@ -2590,7 +2593,11 @@ namespace NHST.Controllers
             while (reader.Read())
             {
                 var entity = new mainorder();
-             
+                var warehouseId = reader["ReceivePlace"].ToString().ToInt(0);
+                var warehouse = new tbl_Warehouse();
+                if (warehouseId > 0)
+                    warehouse = WarehouseController.GetByID(warehouseId);
+
                 if (reader["ID"] != DBNull.Value)
                     entity.ID = reader["ID"].ToString().ToInt(0);         
                 
@@ -2650,7 +2657,7 @@ namespace NHST.Controllers
                     entity.DateDangVeVN = "<p class=\"s-txt no-wrap\">Hàng đang về VN: " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateDangVeVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateDangVeVN"].ToString())) + " </p>";
 
                 if (reader["DateVN"] != DBNull.Value)
-                    entity.DateVN = "<p class=\"s-txt no-wrap\">Đã về kho VN: " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateVN"].ToString())) + " </p>";
+                    entity.DateVN = $"<p class=\"s-txt no-wrap\">Đã về kho {warehouse.WareHouseName}: " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateVN"].ToString())) + " </p>";
 
                 if (reader["PayDate"] != DBNull.Value)
                     entity.DatePay = "<p class=\"s-txt no-wrap\">Khách thanh toán: " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["PayDate"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["PayDate"].ToString())) + " </p>";
@@ -2660,7 +2667,8 @@ namespace NHST.Controllers
 
                 if (reader["FeeInWareHouse"] != DBNull.Value)
                     entity.FeeInWareHouse = reader["FeeInWareHouse"].ToString();
-
+                if (reader["ReceivePlace"] != DBNull.Value)
+                    entity.ReceivePlace = reader["ReceivePlace"].ToString().ToInt(0);
                 list.Add(entity);
             }
             reader.Close();
@@ -5048,7 +5056,7 @@ namespace NHST.Controllers
             //{
             //    sql += " AND M.QuantityBarcode is null";
             //}            
-            sql += " ) SELECT  ds.ID, ds.TotalRow, mo.Site, mo.TotalPriceVND, mo.CurrentCNYVN, mo.DathangID, mo.SalerID, CASE WHEN (mo.LinkImage IS NULL) THEN '' ELSE CONCAT('<img alt=\"\" style=\"max-width:100px;max-height:100px\" src=\"', mo.LinkImage, '\">') END AS anhsanpham, mo.IsDoneSmallPackage, mo.Deposit, mo.CreatedDate, mo.DateDangVeVN, mo.DepostiDate, mo.DateShopPhatHang, mo.DateBuy, mo.DateTQ, mo.DateVN, mo.PayDate, mo.CompleteDate, mo.Status, mo.OrderType, mo.IsCheckNotiPrice, u.Username AS Uname, s.Username AS saler, d.Username AS dathang FROM ds LEFT JOIN dbo.tbl_MainOder AS mo ON mo.ID = ds.ID LEFT JOIN (SELECT ID, Username FROM dbo.tbl_Account) AS u ON mo.UID = u.ID LEFT JOIN (SELECT ID, Username FROM dbo.tbl_Account) AS s ON mo.SalerID = s.ID LEFT JOIN (SELECT ID, Username FROM dbo.tbl_Account) AS d ON mo.DathangID = d.ID ";
+            sql += " ) SELECT  ds.ID, ds.TotalRow, mo.Site, mo.TotalPriceVND, mo.CurrentCNYVN, mo.DathangID, mo.SalerID, CASE WHEN (mo.LinkImage IS NULL) THEN '' ELSE CONCAT('<img alt=\"\" style=\"max-width:100px;max-height:100px\" src=\"', mo.LinkImage, '\">') END AS anhsanpham, mo.IsDoneSmallPackage, mo.Deposit, mo.CreatedDate, mo.DateDangVeVN, mo.DepostiDate, mo.DateShopPhatHang, mo.DateBuy, mo.DateTQ, mo.DateVN, mo.PayDate, mo.CompleteDate, mo.Status, mo.OrderType, mo.IsCheckNotiPrice, mo.ReceivePlace, u.Username AS Uname, s.Username AS saler, d.Username AS dathang FROM ds LEFT JOIN dbo.tbl_MainOder AS mo ON mo.ID = ds.ID LEFT JOIN (SELECT ID, Username FROM dbo.tbl_Account) AS u ON mo.UID = u.ID LEFT JOIN (SELECT ID, Username FROM dbo.tbl_Account) AS s ON mo.SalerID = s.ID LEFT JOIN (SELECT ID, Username FROM dbo.tbl_Account) AS d ON mo.DathangID = d.ID ";
             if (sort == 0)
             {
                 sql += " ORDER BY mo.ID DESC OFFSET (" + pageIndex + " * " + pageSize + ") ROWS FETCH NEXT " + pageSize + " ROWS ONLY";
@@ -5137,6 +5145,9 @@ namespace NHST.Controllers
                     entity.IsCheckNotiPrice = Convert.ToBoolean(reader["IsCheckNotiPrice"]);
                 else
                     entity.IsCheckNotiPrice = false;
+                if (reader["ReceivePlace"] != DBNull.Value)
+                    entity.ReceivePlace = reader["ReceivePlace"].ToString().ToInt(1);
+                var warehouse = WarehouseController.GetByID(Convert.ToInt32(entity.ReceivePlace));
 
                 if (Status == 1)
                 {
@@ -5201,12 +5212,12 @@ namespace NHST.Controllers
                 if (Status == 7)
                 {
                     if (reader["DateVN"] != DBNull.Value)
-                        entity.DateVN = "<p class=\"s-txt no-wrap red-text\"><span class=\"mg\">Hàng về kho VN:</span><span> " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateVN"].ToString())) + "</span> </p>";
+                        entity.DateVN = $"<p class=\"s-txt no-wrap red-text\"><span class=\"mg\">Hàng về kho {warehouse.WareHouseName}:</span><span> " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateVN"].ToString())) + "</span> </p>";
                 }
                 else
                 {
                     if (reader["DateVN"] != DBNull.Value)
-                        entity.DateVN = "<p class=\"s-txt no-wrap\"><span class=\"mg\">Hàng về kho VN:</span><span> " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateVN"].ToString())) + "</span> </p>";
+                        entity.DateVN = $"<p class=\"s-txt no-wrap\"><span class=\"mg\">Hàng về kho {warehouse.WareHouseName}:</span><span> " + string.Format("{0:HH:mm}", Convert.ToDateTime(reader["DateVN"].ToString())) + " - " + string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(reader["DateVN"].ToString())) + "</span> </p>";
                 }
 
                 if (Status == 8)
